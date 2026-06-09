@@ -1481,7 +1481,7 @@
             <span class="weather-day">${label}</span>
             <span class="weather-icon">${wIcons[code]||"🌡️"}</span>
             <span class="weather-cond">${wNames[code]||"未知"}${pp>30?` · ${pp}%`:""}</span>
-            ${isSnow&&snow>0?`<span class="weather-snow">❄️ ${snow.toFixed(1)}cm</span>`:"<span class="weather-snow"></span>"}
+            ${isSnow&&snow>0?`<span class="weather-snow">❄️ ${snow.toFixed(1)}cm</span>`:'<span class="weather-snow"></span>'}
             <span class="weather-temp">${Math.round(daily.temperature_2m_max[i])}° / ${Math.round(daily.temperature_2m_min[i])}°</span>
           </div>`;
         }
