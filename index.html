@@ -1602,13 +1602,30 @@
     }
 
     // ====== 数据加载 ======
+    function parseKpData(raw) {
+      // 兼容两种格式: 二维数组 (旧版 CSV) 和对象数组 (新版 JSON)
+      const result = [];
+      for (let i = 1; i < raw.length; i++) {
+        const row = raw[i];
+        let timeStr, kpVal;
+        if (Array.isArray(row)) {
+          if (row.length < 2) continue;
+          timeStr = row[0]; kpVal = parseFloat(row[1]);
+        } else if (row.time_tag && typeof row.kp === 'number') {
+          timeStr = row.time_tag; kpVal = row.kp;
+        } else {
+          continue;
+        }
+        if (!isNaN(kpVal)) result.push({ time: new Date(timeStr + "Z"), kp: kpVal });
+      }
+      return result;
+    }
+
     async function loadObserved() {
       try {
         const r = await fetch("https://services.swpc.noaa.gov/products/noaa-estimated-planetary-k-index-3-hour.json");
         if (!r.ok) throw new Error("HTTP "+r.status);
-        const raw = await r.json();
-        obsData = [];
-        for (let i=1; i<raw.length; i++) { const row=raw[i]; if(row.length>=2) obsData.push({time:new Date(row[0]+"Z"),kp:parseFloat(row[1])}); }
+        obsData = parseKpData(await r.json());
       } catch(e) { /* 静默 */ }
     }
 
@@ -1616,10 +1633,10 @@
       try {
         const r = await fetch("https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json");
         if (!r.ok) throw new Error("HTTP "+r.status);
-        const raw = await r.json();
-        fcData = [];
-        for (let i=1; i<raw.length; i++) { const row=raw[i]; if(row.length>=2) fcData.push({time:new Date(row[0]+"Z"),kp:parseFloat(row[1])}); }
+        fcData = parseKpData(await r.json());
         await loadObserved();
+        // 数据加载完成后刷新当前 tab，如果当前是参考 tab 则切换到实时
+        if (kpTab === "reference") kpTab = "realtime";
         showKpTab();
       } catch(e) {
         const container = document.getElementById("kp-content");
