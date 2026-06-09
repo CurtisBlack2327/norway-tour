@@ -367,6 +367,92 @@
     .map-legend { gap: 0.75rem; font-size: 0.7rem; }
   }
 
+  /* Weather & KP Dashboard */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .dashboard-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+  }
+  .dashboard-card h4 {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem; font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .dash-content { padding: 1.25rem; }
+  .weather-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.5rem 0; border-bottom: 1px solid rgba(30,45,74,0.4);
+  }
+  .weather-row:last-child { border-bottom: none; }
+  .weather-day { color: var(--text-primary); font-weight: 600; min-width: 3rem; }
+  .weather-icon { font-size: 1.5rem; min-width: 2rem; text-align: center; }
+  .weather-temp { color: var(--accent-ice); font-weight: 600; min-width: 5rem; text-align: right; }
+  .weather-snow { color: var(--text-secondary); font-size: 0.8rem; min-width: 3rem; text-align: right; }
+  .weather-cond { color: var(--text-secondary); font-size: 0.85rem; flex: 1; padding: 0 0.75rem; }
+  .weather-city { font-size: 0.75rem; color: var(--text-secondary); }
+  .weather-city.active { color: var(--accent-aurora); font-weight: 600; }
+  .city-tabs { display: flex; gap: 0.5rem; }
+  .city-tab {
+    font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 99px;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--text-secondary); cursor: pointer; transition: all 0.2s;
+    font-family: var(--font-body);
+  }
+  .city-tab:hover { border-color: var(--accent-ice); color: var(--accent-ice); }
+  .city-tab.active { background: rgba(125,211,252,0.15); border-color: var(--accent-ice); color: var(--accent-ice); }
+
+  .kp-display {
+    display: flex; align-items: center; gap: 1.5rem; padding: 0.5rem 0;
+  }
+  .kp-big {
+    font-size: 4rem; font-weight: 700; line-height: 1;
+    font-family: var(--font-heading);
+  }
+  .kp-k0 { color: #6b7280; } .kp-k1 { color: #6b7280; } .kp-k2 { color: #6b7280; }
+  .kp-k3 { color: var(--accent-aurora); } .kp-k4 { color: var(--accent-aurora); }
+  .kp-k5 { color: var(--accent-gold); animation: kpPulse 2s ease-in-out infinite; }
+  .kp-k6,.kp-k7,.kp-k8,.kp-k9 { color: #f87171; animation: kpPulse 1s ease-in-out infinite; }
+  @keyframes kpPulse {
+    0%,100% { opacity: 1; } 50% { opacity: 0.5; }
+  }
+  .kp-info { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+  .kp-bar-wrap { display: flex; gap: 4px; margin-top: 0.75rem; }
+  .kp-bar {
+    flex: 1; height: 8px; border-radius: 2px;
+    background: rgba(255,255,255,0.1); position: relative; overflow: hidden;
+  }
+  .kp-bar-fill {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    border-radius: 2px; transition: height 0.5s;
+  }
+  .kp-bar-label { font-size: 0.65rem; color: var(--text-secondary); text-align: center; margin-top: 2px; }
+  .kp-time { font-size: 0.7rem; color: var(--text-secondary); text-align: center; margin-top: 2px; }
+
+  .dash-loading {
+    text-align: center; padding: 2rem; color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+  .dash-error {
+    text-align: center; padding: 1.5rem; color: #f87171;
+    font-size: 0.85rem;
+  }
+  .dash-source {
+    font-size: 0.7rem; color: var(--text-secondary); margin-top: 0.75rem;
+    text-align: right; opacity: 0.6;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .kp-display { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .kp-big { font-size: 3rem; }
+  }
+
   /* Footer */
   .footer {
     text-align: center; padding: 3rem 2rem;
@@ -409,6 +495,7 @@
       <li><a href="#transport">交通</a></li>
       <li><a href="#budget">预算</a></li>
       <li><a href="#tips">实用攻略</a></li>
+      <li><a href="#dashboard">实时数据</a></li>
       <li><a href="#links">参考链接</a></li>
     </ul>
   </div>
@@ -665,7 +752,7 @@
         <div class="day-header">
           <span class="day-number">Day 9</span>
           <span class="day-date">2月12日 周五</span>
-          <span class="day-location">📍 奥斯陆 → 香港</span>
+          <span class="day-location">📍 奥斯陆 → 伊斯坦布尔 → 香港</span>
         </div>
         <div class="day-content">
           <p>旅程的最后一天，上午还有时间感受奥斯陆的冬日气息。</p>
@@ -767,6 +854,85 @@
         <li><span class="activity-icon">⛴️</span> 如需轮渡，使用 <strong>AutoPASS</strong> 自动扣费（租车公司通常已配备）</li>
       </ul>
     </div>
+
+    <h3 style="color:var(--accent-ice);margin:2rem 0 1rem">🚢 特罗姆瑟 → 罗佛敦：游轮方案对比</h3>
+    <p style="color:var(--text-secondary);margin-bottom:1rem">除了飞行和自驾，<span class="highlight">海达路德（Hurtigruten）与哈维拉（Havila）</span>沿海游轮提供了一种独特的旅行方式——在欣赏挪威海岸线的同时完成两城之间的位移。</p>
+    <table class="transport-table">
+      <thead>
+        <tr><th></th><th>✈️ 飞行</th><th>🚗 自驾</th><th>🚢 沿海游轮</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>耗时</strong></td>
+          <td>2.5小时（经Bodø转机）</td>
+          <td>6.5小时（435公里）</td>
+          <td style="color:var(--accent-aurora)"><strong>17-18小时</strong></td>
+        </tr>
+        <tr>
+          <td><strong>费用</strong></td>
+          <td>1,500-3,000 NOK</td>
+          <td>租车+油费≈2,500-4,000 NOK</td>
+          <td style="color:var(--accent-gold)"><strong>3,000-4,300 NOK</strong></td>
+        </tr>
+        <tr>
+          <td><strong>班次</strong></td>
+          <td>每天多班</td>
+          <td>随时出发</td>
+          <td>每天1班（通常傍晚离港）</td>
+        </tr>
+        <tr>
+          <td><strong>风景体验</strong></td>
+          <td>⚠️ 高空俯瞰，有限</td>
+          <td>✅ 雪山峡湾公路</td>
+          <td style="color:var(--accent-aurora)"><strong>✅✅ 全程海岸线，峡湾+极光</strong></td>
+        </tr>
+        <tr>
+          <td><strong>舒适度</strong></td>
+          <td>一般</td>
+          <td>冬季疲劳，需专注驾驶</td>
+          <td style="color:var(--accent-aurora)"><strong>高 — 船舱休息、餐厅、观景甲板</strong></td>
+        </tr>
+        <tr>
+          <td><strong>冬季风险</strong></td>
+          <td>航班可能因天气取消</td>
+          <td>⚠️ 路面结冰、暴风雪</td>
+          <td>大风浪可能导致延误</td>
+        </tr>
+        <tr>
+          <td><strong>适合人群</strong></td>
+          <td>追求效率的旅客</td>
+          <td>有雪地驾驶经验者</td>
+          <td style="color:var(--accent-aurora)"><strong>想体验挪威航海文化、不赶时间的旅行者</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem">
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1.25rem">
+        <h4 style="color:var(--accent-aurora);margin-bottom:0.5rem">👍 游轮优势</h4>
+        <ul style="color:var(--text-secondary);font-size:0.9rem;padding-left:1.25rem">
+          <li>一觉醒来已到罗佛敦，不占用白天游玩时间</li>
+          <li>甲板追极光 — 海上无光污染，视野开阔</li>
+          <li>途经塞尼亚岛、Vesterålen群岛，风景绝美</li>
+          <li>舱内有独立卫浴，可洗澡休息</li>
+          <li>船上餐厅供应挪威海鲜自助</li>
+        </ul>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1.25rem">
+        <h4 style="color:var(--accent-gold);margin-bottom:0.5rem">👎 游轮劣势</h4>
+        <ul style="color:var(--text-secondary);font-size:0.9rem;padding-left:1.25rem">
+          <li>耗时17+小时，相当于Day 5白天都在海上</li>
+          <li>班次单一（每天仅一班），错过需等24小时</li>
+          <li>价格和飞行+一晚酒店相当，无成本优势</li>
+          <li>冬季海面风浪大，易晕船者慎选</li>
+          <li>抵达时间为清晨，需等待酒店入住</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="color:var(--text-secondary);margin-top:1rem;font-size:0.9rem">
+      <strong>结论：</strong>对于本次9天8晚的紧凑行程，<span class="highlight">推荐飞行方案</span>，将节省的白天时间留给罗佛敦的探索。如果时间充裕（10天以上），或者对挪威航海文化特别感兴趣，游轮是绝佳的体验式交通。预订可访问 <a href="https://www.hurtigruten.com/" target="_blank" style="color:var(--accent-ice)">Hurtigruten.com</a> 或 <a href="https://www.havilavoyages.com/" target="_blank" style="color:var(--accent-ice)">HavilaVoyages.com</a>。
+    </p>
   </section>
 
   <!-- Budget -->
@@ -946,6 +1112,41 @@
 
 </div>
 
+  <!-- Weather & KP Dashboard -->
+  <section class="section" id="dashboard">
+    <h2 class="section-title"><span class="icon">🛰️</span>实时天气与极光预测</h2>
+    <p style="color:var(--text-secondary);margin-bottom:1.5rem;font-size:0.9rem">数据来自 Open-Meteo 免费天气 API 与 NOAA SWPC 极光预测，每30分钟自动刷新。</p>
+
+    <!-- City tabs -->
+    <div class="city-tabs" style="margin-bottom:1.25rem">
+      <button class="city-tab active" data-city="tromso">特罗姆瑟</button>
+      <button class="city-tab" data-city="reine">罗佛敦 · 雷讷</button>
+      <button class="city-tab" data-city="oslo">奥斯陆</button>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Weather card -->
+      <div class="dashboard-card">
+        <h4 style="color:var(--accent-ice)">🌤️ <span id="weather-city-name">特罗姆瑟</span> 七日预报</h4>
+        <div class="dash-content" id="weather-content">
+          <div class="dash-loading">⏳ 加载天气数据中...</div>
+        </div>
+        <div class="dash-source">数据源: Open-Meteo (open-meteo.com)</div>
+      </div>
+
+      <!-- KP card -->
+      <div class="dashboard-card">
+        <h4 style="color:var(--accent-aurora)">🌌 极光 KP 指数预测</h4>
+        <div class="dash-content" id="kp-content">
+          <div class="dash-loading">⏳ 加载极光数据中...</div>
+        </div>
+        <div class="dash-source">数据源: NOAA SWPC (swpc.noaa.gov) · KP≥3 可追逐，≥5 极光大爆发</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
 <!-- Footer -->
 <footer class="footer">
   <p>挪威极光之旅 · 2027年2月 | 特罗姆瑟 & 罗佛敦群岛</p>
@@ -973,12 +1174,13 @@
       { id:'reine',name:'雷讷',       en:'Reine',         lat:67.932,  lng:13.089,   type:'core', day:6, date:'2/9-2/10' },
       { id:'a_town',name:'Å镇',       en:'Å i Lofoten',  lat:67.879,  lng:12.982,   type:'core', day:7, date:'2/10' },
       { id:'osl2', name:'奥斯陆',     en:'Oslo',          lat:59.913,  lng:10.752,   type:'transit', day:8, date:'2/11-2/12' },
+      { id:'ist2', name:'伊斯坦布尔', en:'Istanbul',      lat:41.261,  lng:28.742,   type:'transit', day:9, date:'2/12' },
       { id:'hkg2', name:'香港',      en:'Hong Kong',     lat:22.319,  lng:114.169,  type:'end', day:9, date:'2/12' },
     ];
 
     // 路线段定义 (索引对)
     const flightSegments = [
-      [0,1],[1,2],[2,3],[3,4],[6,7],[7,8]  // HKG→IST, IST→OSL, OSL→TOS, TOS→SVJ, Å→OSL, OSL→HKG
+      [0,1],[1,2],[2,3],[3,4],[6,7],[7,8],[8,9]  // HKG→IST, IST→OSL, OSL→TOS, TOS→SVJ, Å→OSL, OSL→IST, IST→HKG
     ];
     const driveSegments = [
       [4,5],[5,6]  // SVJ→Reine, Reine→Å
@@ -1116,6 +1318,191 @@
       }
       return pts;
     }
+  })();
+
+  // ==================== 天气 & KP Dashboard ====================
+  (function() {
+    // 城市坐标
+    const cities = {
+      tromso:  { name:'特罗姆瑟', lat:69.65, lng:18.96, tz:'Europe/Oslo' },
+      reine:   { name:'雷讷',     lat:67.93, lng:13.09, tz:'Europe/Oslo' },
+      oslo:    { name:'奥斯陆',   lat:59.91, lng:10.75, tz:'Europe/Oslo' },
+    };
+
+    // 天气代码映射 (WMO)
+    const weatherIcons = {
+      0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
+      45:'🌫️', 48:'🌫️',
+      51:'🌧️', 53:'🌧️', 55:'🌧️',
+      61:'🌧️', 63:'🌧️', 65:'🌧️',
+      71:'🌨️', 73:'🌨️', 75:'🌨️', 77:'❄️',
+      80:'🌦️', 81:'🌦️', 82:'🌦️',
+      85:'🌨️', 86:'🌨️',
+      95:'⛈️', 96:'⛈️', 99:'⛈️',
+    };
+    const weatherNames = {
+      0:'晴', 1:'少云', 2:'多云', 3:'阴',
+      45:'雾', 48:'霜雾',
+      51:'小雨', 53:'中雨', 55:'大雨',
+      61:'小雨', 63:'中雨', 65:'大雨',
+      71:'小雪', 73:'中雪', 75:'大雪', 77:'雪粒',
+      80:'阵雨', 81:'中阵雨', 82:'大阵雨',
+      85:'阵雪', 86:'大阵雪',
+      95:'雷暴', 96:'雷暴+冰雹', 99:'强雷暴',
+    };
+
+    let currentCity = 'tromso';
+    let kpData = null;
+
+    // ------ 城市切换 ------
+    document.querySelectorAll('.city-tab').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.city-tab').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentCity = this.dataset.city;
+        document.getElementById('weather-city-name').textContent = cities[currentCity].name;
+        fetchWeather(currentCity);
+      });
+    });
+
+    // ------ 获取天气 ------
+    async function fetchWeather(cityKey) {
+      const city = cities[cityKey];
+      const container = document.getElementById('weather-content');
+      container.innerHTML = '<div class="dash-loading">⏳ 加载中...</div>';
+
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lng}&daily=temperature_2m_max,temperature_2m_min,weathercode,snowfall_sum,precipitation_probability_max&timezone=${city.tz}&forecast_days=7`;
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error('API error');
+        const data = await resp.json();
+        renderWeather(data, cityKey);
+      } catch(e) {
+        container.innerHTML = `<div class="dash-error">⚠️ 天气数据加载失败<br><small>${e.message}</small></div>`;
+      }
+    }
+
+    function renderWeather(data, cityKey) {
+      const container = document.getElementById('weather-content');
+      const daily = data.daily;
+      const dayNames = ['周日','周一','周二','周三','周四','周五','周六'];
+
+      let html = '';
+      for (let i = 0; i < Math.min(7, daily.time.length); i++) {
+        const date = new Date(daily.time[i] + 'T12:00');
+        const dayName = i === 0 ? '今天' : i === 1 ? '明天' : dayNames[date.getDay()];
+        const code = daily.weathercode[i];
+        const icon = weatherIcons[code] || '🌡️';
+        const cond = weatherNames[code] || '未知';
+        const snow = daily.snowfall_sum[i] || 0;
+        const precipProb = daily.precipitation_probability_max ? daily.precipitation_probability_max[i] : 0;
+        const isSnowCity = cityKey === 'tromso' || cityKey === 'reine';
+
+        html += `<div class="weather-row">
+          <span class="weather-day">${dayName}</span>
+          <span class="weather-icon">${icon}</span>
+          <span class="weather-cond">${cond}${precipProb > 30 ? ` · ${precipProb}%` : ''}</span>
+          ${isSnowCity && snow > 0 ? `<span class="weather-snow">❄️ ${snow.toFixed(1)}cm</span>` : '<span class="weather-snow"></span>'}
+          <span class="weather-temp">${Math.round(daily.temperature_2m_max[i])}° / ${Math.round(daily.temperature_2m_min[i])}°</span>
+        </div>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    // ------ 获取 KP 指数 ------
+    async function fetchKP() {
+      const container = document.getElementById('kp-content');
+      try {
+        // NOAA 3-day planetary K-index forecast
+        const resp = await fetch('https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json');
+        if (!resp.ok) throw new Error('NOAA API error');
+        const raw = await resp.json();
+
+        // 解析: 第一行是元数据，后续行为 [time, kp, observed/estimated]
+        const forecasts = [];
+        for (let i = 1; i < raw.length; i++) {
+          const row = raw[i];
+          if (row.length >= 2) {
+            forecasts.push({
+              time: new Date(row[0] + 'Z'),
+              kp: parseFloat(row[1]),
+            });
+          }
+        }
+        kpData = forecasts;
+        renderKP(forecasts);
+      } catch(e) {
+        container.innerHTML = `<div class="dash-error">⚠️ 极光数据加载失败<br><small>${e.message}</small><br><small>请稍后刷新重试</small></div>`;
+      }
+    }
+
+    function renderKP(forecasts) {
+      const container = document.getElementById('kp-content');
+      if (!forecasts.length) {
+        container.innerHTML = '<div class="dash-error">无可用数据</div>';
+        return;
+      }
+
+      // 当前/最近 KP
+      const now = new Date();
+      let currentKp = forecasts[0].kp;
+      let closestDist = Infinity;
+      forecasts.forEach(f => {
+        const dist = Math.abs(f.time - now);
+        if (dist < closestDist) { closestDist = dist; currentKp = f.kp; }
+      });
+
+      const kpClass = 'kp-k' + Math.min(9, Math.floor(currentKp));
+      let kpMsg = '';
+      if (currentKp < 3) kpMsg = '极光活动较弱，耐心等待或关注后几日预报';
+      else if (currentKp < 5) kpMsg = '极光可见！找一处无光污染的开阔地，有机会捕捉到绿色光带';
+      else if (currentKp < 7) kpMsg = '🌌 极光活跃！强烈建议今晚出行，大概率看到舞动的极光帷幕';
+      else kpMsg = '🔥 极光大爆发！极其罕见的高强度，千万不要错过今晚！';
+
+      let html = `
+        <div class="kp-display">
+          <span class="kp-big ${kpClass}">${currentKp.toFixed(1)}</span>
+          <div class="kp-info">
+            <strong>当前 KP 指数</strong><br>
+            ${kpMsg}<br>
+            <small style="opacity:0.6">时间: ${forecasts[0].time.toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})} (北京时间)</small>
+          </div>
+        </div>
+      `;
+
+      // 未来 KP 柱状图
+      const next12 = forecasts.slice(0, 12);
+      html += '<div class="kp-bar-wrap">';
+      next12.forEach(f => {
+        const kp = f.kp;
+        const pct = Math.min(100, (kp / 9) * 100);
+        let color = '#4ade80';
+        if (kp >= 7) color = '#f87171';
+        else if (kp >= 5) color = '#fbbf24';
+        else if (kp >= 3) color = '#4ade80';
+        else color = '#6b7280';
+
+        html += `<div style="flex:1;text-align:center">
+          <div class="kp-bar"><div class="kp-bar-fill" style="height:${pct}%;background:${color}"></div></div>
+          <div class="kp-bar-label">${f.kp.toFixed(1)}</div>
+          <div class="kp-time">${f.time.toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Shanghai'})}</div>
+        </div>`;
+      });
+      html += '</div>';
+
+      container.innerHTML = html;
+    }
+
+    // ------ 初始化 ------
+    fetchWeather('tromso');
+    fetchKP();
+
+    // 每30分钟刷新
+    setInterval(() => {
+      fetchWeather(currentCity);
+      fetchKP();
+    }, 30 * 60 * 1000);
   })();
 
   // ==================== 原有功能 ====================
