@@ -551,7 +551,7 @@
 <header class="hero">
   <h1>挪威极光之旅</h1>
   <p class="subtitle">特罗姆瑟 & 罗佛敦群岛 · 追逐北极光与峡湾的冬日童话</p>
-  <span class="date-badge">2027年2月4日 — 2月12日 · 9天8晚</span>
+  <span class="date-badge">2027年2月4日 — 2月12日 · 9天8晚 · 👫 双人旅行</span>
 </header>
 
 <div class="container">
@@ -562,8 +562,8 @@
     <div class="overview-grid">
       <div class="overview-card">
         <div class="card-icon">🌍</div>
-        <div class="card-value">9天8晚</div>
-        <div class="card-label">香港出发，经伊斯坦布尔中转</div>
+        <div class="card-value">👫 2人出行</div>
+        <div class="card-label">9天8晚 · 香港出发经伊斯坦布尔</div>
       </div>
       <div class="overview-card">
         <div class="card-icon">📍</div>
@@ -1025,9 +1025,10 @@
     </div>
 
     <div style="text-align:center;margin-top:2rem;padding:1.5rem;background:var(--bg-card);border:1px solid rgba(74,222,128,0.3);border-radius:12px">
-      <span style="font-size:1.2rem;color:var(--text-secondary)">💰 预估总预算：</span>
+      <span style="font-size:1.2rem;color:var(--text-secondary)">💰 预估总预算（每人）：</span>
       <span style="font-size:2rem;font-weight:700;color:var(--accent-aurora);margin-left:0.5rem">41,000 - 59,000 NOK</span>
-      <span style="display:block;color:var(--text-secondary);margin-top:0.5rem">约合人民币 27,000 - 39,000 元（按1 NOK ≈ 0.66 CNY）</span>
+      <span style="display:block;color:var(--text-secondary);margin-top:0.5rem">约合人民币 27,000 - 39,000 元/人（按1 NOK ≈ 0.66 CNY）</span>
+      <span style="display:block;color:var(--text-secondary);font-size:0.9rem;margin-top:0.3rem">👫 <strong>双人合计：82,000 - 118,000 NOK</strong>（约人民币 54,000 - 78,000 元）</span>
       <span style="display:block;color:var(--text-secondary);font-size:0.8rem;margin-top:0.3rem">含国际国内机票、住宿、活动、餐饮、租车全包</span>
     </div>
   </section>
@@ -1100,6 +1101,18 @@
           <li><strong>Kanelboller（肉桂卷）：</strong>北欧经典甜品</li>
           <li><strong>Aquavit：</strong>北欧传统烈酒，配海鲜绝佳</li>
           <li>省钱技巧：超市（Rema 1000 / Kiwi / Coop）自购食材做饭，罗佛敦Rorbuer都有厨房</li>
+        </ul>
+      </div>
+
+      <div class="tip-card">
+        <h4>👫 双人旅行贴士</h4>
+        <ul>
+          <li><strong>住宿优势：</strong>双人出行可共享一间Rorbuer渔夫小屋，比单人出行节省约40%住宿费；部分小屋配有双人床+壁炉，极光夜格外浪漫</li>
+          <li><strong>租车分摊：</strong>罗佛敦自驾租车费用（含油费保险）两人分摊，每人约1,750-2,500 NOK</li>
+          <li><strong>极光拍摄：</strong>一人操作相机长曝光，另一人可出境作为前景——雪山+极光+人物的构图最为经典</li>
+          <li><strong>活动预订：</strong>狗拉雪橇、观鲸等活动通常两人一起预订更灵活，部分运营商提供双人优惠价</li>
+          <li><strong>餐饮建议：</strong>超市自购食材在渔夫小屋做饭是双人出行的浪漫省钱方式——挪威超市三文鱼价格仅为餐厅的1/3</li>
+          <li><strong>分工建议：</strong>一人负责驾驶导航，一人负责拍照记录；一人查KP值，一人确认云图——追光效率翻倍</li>
         </ul>
       </div>
 
@@ -1216,10 +1229,13 @@
   <p style="margin-top:1rem;font-size:0.75rem;color:var(--text-secondary)">Last updated: <span id="update-time">2026-06-09</span></p>
 </footer>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""
+  onerror="var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';document.head.appendChild(s);"></script>
 <script>
   // ==================== 动态地图 ====================
   (function() {
+    if (typeof L === 'undefined') { console.warn('Leaflet not loaded, map skipped'); return; }
+    try {
     // 北极圈纬度
     const ARCTIC_CIRCLE = 66.563;
 
@@ -1254,12 +1270,30 @@
       attributionControl: true,
     });
 
-    // 暗色底图
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 19,
-    }).addTo(map);
+    // 底图：优先用 CARTO 暗色，回退到 OSM
+    let tileLayer;
+    try {
+      tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19,
+      }).addTo(map);
+    } catch(e) { /* fallback below */ }
+
+    // 如果 CARTO 加载失败（超时5秒），自动切换到 OSM
+    setTimeout(() => {
+      const tiles = document.querySelectorAll('#trip-map .leaflet-tile');
+      if (tiles.length === 0 || tiles[0].naturalWidth === 0) {
+        if (tileLayer) map.removeLayer(tileLayer);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a>',
+          maxZoom: 19,
+        }).addTo(map);
+        // 暗色滤镜
+        const el = document.getElementById('trip-map');
+        if (el) el.style.filter = 'invert(0.9) hue-rotate(180deg) brightness(0.6)';
+      }
+    }, 5000);
 
     // 北极圈虚线
     L.polyline([
@@ -1377,330 +1411,231 @@
       }
       return pts;
     }
+    } catch(e) { console.warn('Map init error:', e.message); }
   })();
 
   // ==================== 天气 & KP Dashboard ====================
   (function() {
-    const TRIP_START = new Date('2027-02-04');
-    const TRIP_END   = new Date('2027-02-12');
+    try {
+    const TRIP_START = new Date("2027-02-04");
+    const TRIP_END   = new Date("2027-02-12");
 
-    // 城市坐标
     const cities = {
-      tromso: { name:'特罗姆瑟', lat:69.65, lng:18.96, tz:'Europe/Oslo', febAvgHi:-3, febAvgLo:-8, febSnow:22 },
-      reine:  { name:'雷讷',     lat:67.93, lng:13.09, tz:'Europe/Oslo', febAvgHi:1,  febAvgLo:-3,  febSnow:18 },
-      oslo:   { name:'奥斯陆',   lat:59.91, lng:10.75, tz:'Europe/Oslo', febAvgHi:0,  febAvgLo:-6,  febSnow:14 },
+      tromso: { name:"特罗姆瑟", lat:69.65, lng:18.96, tz:"Europe/Oslo", febHi:-3, febLo:-8, febSnow:22 },
+      reine:  { name:"雷讷",     lat:67.93, lng:13.09, tz:"Europe/Oslo", febHi:1,  febLo:-3,  febSnow:18 },
+      oslo:   { name:"奥斯陆",   lat:59.91, lng:10.75, tz:"Europe/Oslo", febHi:0,  febLo:-6,  febSnow:14 },
     };
+    const wIcons = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌧️",53:"🌧️",55:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",71:"🌨️",73:"🌨️",75:"🌨️",77:"❄️",80:"🌦️",81:"🌦️",82:"🌦️",85:"🌨️",86:"🌨️",95:"⛈️",96:"⛈️",99:"⛈️"};
+    const wNames = {0:"晴",1:"少云",2:"多云",3:"阴",45:"雾",48:"霜雾",51:"小雨",53:"中雨",55:"大雨",61:"小雨",63:"中雨",65:"大雨",71:"小雪",73:"中雪",75:"大雪",77:"雪粒",80:"阵雨",81:"中阵雨",82:"大阵雨",85:"阵雪",86:"大阵雪",95:"雷暴",96:"雷暴+冰雹",99:"强雷暴"};
 
-    // 天气代码映射 (WMO)
-    const weatherIcons = {
-      0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',
-      51:'🌧️',53:'🌧️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',
-      71:'🌨️',73:'🌨️',75:'🌨️',77:'❄️',
-      80:'🌦️',81:'🌦️',82:'🌦️',85:'🌨️',86:'🌨️',
-      95:'⛈️',96:'⛈️',99:'⛈️',
-    };
-    const weatherNames = {
-      0:'晴',1:'少云',2:'多云',3:'阴',45:'雾',48:'霜雾',
-      51:'小雨',53:'中雨',55:'大雨',61:'小雨',63:'中雨',65:'大雨',
-      71:'小雪',73:'中雪',75:'大雪',77:'雪粒',
-      80:'阵雨',81:'中阵雨',82:'大阵雨',85:'阵雪',86:'大阵雪',
-      95:'雷暴',96:'雷暴+冰雹',99:'强雷暴',
-    };
-
-    let currentCity = 'tromso';
-    let forecastData = [];  // NOAA forecast
-    let observedData = [];  // NOAA observed (3-day)
-    let currentKpTab = 'realtime';
+    let curCity = "tromso";
+    let fcData = [];
+    let obsData = [];
+    let kpTab = "realtime";
 
     // ====== 城市切换 ======
-    document.querySelectorAll('.city-tab').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.city-tab').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        currentCity = this.dataset.city;
-        document.getElementById('weather-city-name').textContent = cities[currentCity].name;
-        fetchWeather(currentCity);
-        renderTripWeather();
+    document.querySelectorAll(".city-tab").forEach(b => {
+      b.addEventListener("click", function() {
+        document.querySelectorAll(".city-tab").forEach(x => x.classList.remove("active"));
+        this.classList.add("active");
+        curCity = this.dataset.city;
+        document.getElementById("weather-city-name").textContent = cities[curCity].name;
+        loadWeather();
+        showTripWx();
       });
     });
 
-    // ====== 天气：七日预报 ======
-    async function fetchWeather(cityKey) {
-      const city = cities[cityKey];
-      const container = document.getElementById('weather-content');
-      container.innerHTML = '<div class="dash-loading">⏳ 加载中...</div>';
+    // ====== 天气 ======
+    function renderWxSkeleton() {
+      const c = document.getElementById("weather-content");
+      const dn = ["周日","周一","周二","周三","周四","周五","周六"];
+      let h = "";
+      for (let i=0; i<7; i++) {
+        const d = new Date(); d.setDate(d.getDate()+i);
+        const label = i===0?"今天":i===1?"明天":dn[d.getDay()];
+        h += `<div class="weather-row"><span class="weather-day">${label}</span><span class="weather-icon">—</span><span class="weather-cond" style="opacity:0.5">加载中</span><span class="weather-snow"></span><span class="weather-temp" style="opacity:0.5">—° / —°</span></div>`;
+      }
+      c.innerHTML = h;
+    }
+
+    async function loadWeather() {
+      renderWxSkeleton();
+      const city = cities[curCity];
       try {
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lng}&daily=temperature_2m_max,temperature_2m_min,weathercode,snowfall_sum,precipitation_probability_max&timezone=${city.tz}&forecast_days=7`;
-        const resp = await fetch(url);
-        if (!resp.ok) throw new Error('API error');
-        renderWeather(await resp.json(), cityKey);
-      } catch(e) {
-        container.innerHTML = `<div class="dash-error">⚠️ 天气数据加载失败<br><small>${e.message}</small></div>`;
-      }
-    }
-
-    function renderWeather(data, cityKey) {
-      const container = document.getElementById('weather-content');
-      const daily = data.daily;
-      const dayNames = ['周日','周一','周二','周三','周四','周五','周六'];
-      let html = '';
-      for (let i = 0; i < Math.min(7, daily.time.length); i++) {
-        const date = new Date(daily.time[i] + 'T12:00');
-        const dayName = i === 0 ? '今天' : i === 1 ? '明天' : dayNames[date.getDay()];
-        const code = daily.weathercode[i];
-        const icon = weatherIcons[code] || '🌡️';
-        const cond = weatherNames[code] || '未知';
-        const snow = daily.snowfall_sum[i] || 0;
-        const precipProb = daily.precipitation_probability_max ? daily.precipitation_probability_max[i] : 0;
-        const isSnowCity = cityKey === 'tromso' || cityKey === 'reine';
-        html += `<div class="weather-row">
-          <span class="weather-day">${dayName}</span>
-          <span class="weather-icon">${icon}</span>
-          <span class="weather-cond">${cond}${precipProb > 30 ? ` · ${precipProb}%` : ''}</span>
-          ${isSnowCity && snow > 0 ? `<span class="weather-snow">❄️ ${snow.toFixed(1)}cm</span>` : '<span class="weather-snow"></span>'}
-          <span class="weather-temp">${Math.round(daily.temperature_2m_max[i])}° / ${Math.round(daily.temperature_2m_min[i])}°</span>
-        </div>`;
-      }
-      container.innerHTML = html;
-    }
-
-    // ====== 天气：出行日期预报（占位 / 气候均值） ======
-    function renderTripWeather() {
-      const city = cities[currentCity];
-      const grid = document.getElementById('trip-weather-grid');
-      const now = new Date();
-      const daysUntilTrip = Math.ceil((TRIP_START - now) / (1000 * 60 * 60 * 24));
-      const canForecast = daysUntilTrip <= 14 && daysUntilTrip >= 0;
-
-      // 生成 2.4 - 2.12 共9天的卡片
-      let html = '';
-      for (let d = 0; d < 9; d++) {
-        const tripDate = new Date(TRIP_START);
-        tripDate.setDate(tripDate.getDate() + d);
-        const label = `${tripDate.getMonth()+1}/${tripDate.getDate()}`;
-        const dayName = ['日','一','二','三','四','五','六'][tripDate.getDay()];
-
-        if (canForecast && d < 7) {
-          // 未来14天内，前7天可预测（后续接入真实预报API后替换）
-          html += `<div class="trip-date-cell">
-            <div class="td-date">${label} 周${dayName}</div>
-            <div class="td-countdown">即将开放</div>
-          </div>`;
-        } else if (daysUntilTrip > 14) {
-          // 距出行太远，显示气候均值
-          const isSnowCity = currentCity === 'tromso' || currentCity === 'reine';
-          html += `<div class="trip-date-cell">
-            <div class="td-date">${label} 周${dayName}</div>
-            <div style="font-size:0.7rem;color:var(--accent-ice)">${city.febAvgHi}° / ${city.febAvgLo}°</div>
-            ${isSnowCity ? `<div style="font-size:0.65rem;color:var(--text-secondary)">❄️ ~${city.febSnow}cm</div>` : ''}
-            <div class="td-status">气候均值</div>
-          </div>`;
-        } else {
-          html += `<div class="trip-date-cell">
-            <div class="td-date">${label} 周${dayName}</div>
-            <div class="td-countdown">距出行 ${daysUntilTrip} 天</div>
+        const r = await fetch(url);
+        if (!r.ok) throw new Error("HTTP "+r.status);
+        const data = await r.json();
+        const daily = data.daily;
+        const dn = ["周日","周一","周二","周三","周四","周五","周六"];
+        const container = document.getElementById("weather-content");
+        let h = "";
+        for (let i=0; i<Math.min(7, daily.time.length); i++) {
+          const d = new Date(daily.time[i]+"T12:00");
+          const label = i===0?"今天":i===1?"明天":dn[d.getDay()];
+          const code = daily.weathercode[i];
+          const isSnow = curCity==="tromso"||curCity==="reine";
+          const snow = daily.snowfall_sum[i]||0;
+          const pp = daily.precipitation_probability_max ? daily.precipitation_probability_max[i] : 0;
+          h += `<div class="weather-row">
+            <span class="weather-day">${label}</span>
+            <span class="weather-icon">${wIcons[code]||"🌡️"}</span>
+            <span class="weather-cond">${wNames[code]||"未知"}${pp>30?` · ${pp}%`:""}</span>
+            ${isSnow&&snow>0?`<span class="weather-snow">❄️ ${snow.toFixed(1)}cm</span>`:"<span class="weather-snow"></span>"}
+            <span class="weather-temp">${Math.round(daily.temperature_2m_max[i])}° / ${Math.round(daily.temperature_2m_min[i])}°</span>
           </div>`;
         }
+        container.innerHTML = h;
+      } catch(e) {
+        document.getElementById("weather-content").innerHTML += `<div class="dash-error" style="font-size:0.7rem;padding:0.5rem">⚠️ 实时数据获取失败<br><small>${e.message}</small></div>`;
       }
+    }
 
-      if (daysUntilTrip > 14) {
-        html += `<div style="grid-column:1/-1;font-size:0.7rem;color:var(--text-secondary);text-align:center;margin-top:0.25rem">
-          距出行还有 ${daysUntilTrip} 天，当前显示二月份气候均值（数据来源: yr.no 历史统计）</div>`;
+    // ====== 出行日期天气 ======
+    function showTripWx() {
+      const city = cities[curCity];
+      const grid = document.getElementById("trip-weather-grid");
+      const now = new Date();
+      const daysLeft = Math.ceil((TRIP_START - now)/(86400000));
+      const dn = ["日","一","二","三","四","五","六"];
+      let h = "";
+      for (let d=0; d<9; d++) {
+        const td = new Date(TRIP_START); td.setDate(td.getDate()+d);
+        const lbl = `${td.getMonth()+1}/${td.getDate()}`;
+        const dw = dn[td.getDay()];
+        if (daysLeft > 14) {
+          const isSnow = curCity==="tromso"||curCity==="reine";
+          h += `<div class="trip-date-cell">
+            <div class="td-date">${lbl} 周${dw}</div>
+            <div style="font-size:0.7rem;color:var(--accent-ice)">${city.febHi}° / ${city.febLo}°</div>
+            ${isSnow?`<div style="font-size:0.65rem;color:var(--text-secondary)">❄ ~${city.febSnow}cm</div>`:""}
+            <div class="td-status">气候均值</div></div>`;
+        } else if (daysLeft >= 0) {
+          h += `<div class="trip-date-cell"><div class="td-date">${lbl} 周${dw}</div><div class="td-countdown">距出行${daysLeft+d}天</div></div>`;
+        } else {
+          h += `<div class="trip-date-cell"><div class="td-date">${lbl} 周${dw}</div><div class="td-status">暂无数据</div></div>`;
+        }
       }
-
-      grid.innerHTML = html;
+      if (daysLeft>14) h += `<div style="grid-column:1/-1;font-size:0.65rem;color:var(--text-secondary);text-align:center">距出行${daysLeft}天，显示二月气候均值 (yr.no)</div>`;
+      grid.innerHTML = h;
     }
 
     // ====== KP Tab 切换 ======
-    document.querySelectorAll('.kp-tab').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.kp-tab').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        currentKpTab = this.dataset.tab;
-        renderCurrentKpTab();
+    document.querySelectorAll(".kp-tab").forEach(b => {
+      b.addEventListener("click", function() {
+        document.querySelectorAll(".kp-tab").forEach(x => x.classList.remove("active"));
+        this.classList.add("active");
+        kpTab = this.dataset.tab;
+        showKpTab();
       });
     });
 
-    function renderCurrentKpTab() {
-      switch(currentKpTab) {
-        case 'realtime':  renderKpRealtime(); break;
-        case 'forecast':  renderKpForecast(); break;
-        case 'history':   renderKpHistory(); break;
-        case 'reference': renderKpReference(); break;
+    function showKpTab() {
+      const c = document.getElementById("kp-content");
+      switch(kpTab) {
+        case "realtime":  showKpLive(c); break;
+        case "forecast":  showKpFc(c); break;
+        case "history":   showKpHist(c); break;
+        case "reference": showKpRef(c); break;
       }
     }
 
-    // ====== KP：实时 ======
-    function renderKpRealtime() {
-      const container = document.getElementById('kp-content');
-      if (!forecastData.length) {
-        container.innerHTML = '<div class="dash-loading">⏳ 极光数据加载中...</div>';
-        return;
-      }
+    function kpCls(v) { const f=Math.floor(v); return "kp-k"+Math.min(9,f); }
+    function kpColor(v) { if(v>=7)return"#f87171";if(v>=5)return"#fbbf24";if(v>=3)return"#4ade80";return"#6b7280"; }
+    function kpMsg(v) {
+      if(v<3)return"极光活动较弱，耐心等待或关注后几日预报";
+      if(v<5)return"极光可见！找一处无光污染的开阔地，有机会捕捉到绿色光带";
+      if(v<7)return"🌌 极光活跃！强烈建议今晚出行，大概率看到舞动的极光帷幕";
+      return"🔥 极光大爆发！极其罕见的高强度，千万不要错过今晚！";
+    }
+
+    function showKpLive(c) {
+      if (!fcData.length) { c.innerHTML = "<div class=\"dash-loading\">⏳ 极光数据加载中，请稍候...</div>"; return; }
       const now = new Date();
-      let currentKp = forecastData[0].kp;
-      let closestDist = Infinity;
-      let closestTime = forecastData[0].time;
-      forecastData.forEach(f => {
-        const dist = Math.abs(f.time - now);
-        if (dist < closestDist) { closestDist = dist; currentKp = f.kp; closestTime = f.time; }
-      });
-
-      const kpClass = 'kp-k' + Math.min(9, Math.floor(currentKp));
-      let kpMsg = '';
-      if (currentKp < 3) kpMsg = '极光活动较弱，耐心等待或关注后几日预报';
-      else if (currentKp < 5) kpMsg = '极光可见！找一处无光污染的开阔地，有机会捕捉到绿色光带';
-      else if (currentKp < 7) kpMsg = '🌌 极光活跃！强烈建议今晚出行，大概率看到舞动的极光帷幕';
-      else kpMsg = '🔥 极光大爆发！极其罕见的高强度，千万不要错过今晚！';
-
-      const container = document.getElementById('kp-content');
-      container.innerHTML = `
-        <div class="kp-display">
-          <span class="kp-big ${kpClass}">${currentKp.toFixed(1)}</span>
-          <div class="kp-info">
-            <strong>当前 KP 指数</strong><br>${kpMsg}<br>
-            <small style="opacity:0.6">观测时间: ${closestTime.toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})} (北京时间)</small>
-          </div>
-        </div>
-        <div style="margin-top:0.5rem;font-size:0.7rem;color:var(--text-secondary)">
-          NOAA 3小时行星K指数 · 实时观测值
-        </div>`;
+      let best=fcData[0], bestDist=Infinity;
+      fcData.forEach(f=>{const d=Math.abs(f.time-now);if(d<bestDist){bestDist=d;best=f;}});
+      c.innerHTML = `<div class="kp-display">
+        <span class="kp-big ${kpCls(best.kp)}">${best.kp.toFixed(1)}</span>
+        <div class="kp-info"><strong>当前 KP 指数</strong><br>${kpMsg(best.kp)}<br>
+        <small style="opacity:0.6">${best.time.toLocaleString("zh-CN",{timeZone:"Asia/Shanghai"})} (北京时间)</small></div>
+      </div><div style="margin-top:0.5rem;font-size:0.7rem;color:var(--text-secondary)">NOAA 3小时行星K指数 · 实时</div>`;
     }
 
-    // ====== KP：3日预测 ======
-    function renderKpForecast() {
-      const container = document.getElementById('kp-content');
-      if (!forecastData.length) {
-        container.innerHTML = '<div class="dash-loading">⏳ 预测数据加载中...</div>';
+    function showKpFc(c) {
+      if (!fcData.length) { c.innerHTML = "<div class=\"dash-loading\">⏳ 预测加载中...</div>"; return; }
+      const pts = fcData.slice(0,18);
+      let h = "<div class=\"kp-bar-wrap\">";
+      pts.forEach(f=>{
+        const pct = Math.min(100,(f.kp/9)*100), clr = kpColor(f.kp);
+        h+=`<div style="flex:1;text-align:center"><div class="kp-bar"><div class="kp-bar-fill" style="height:${pct}%;background:${clr}"></div></div><div class="kp-bar-label">${f.kp.toFixed(1)}</div><div class="kp-time">${f.time.toLocaleString("zh-CN",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit",timeZone:"Asia/Shanghai"})}</div></div>`;
+      });
+      h+="</div><div style=\"margin-top:0.5rem;font-size:0.7rem;color:var(--text-secondary)\">NOAA SWPC 3日预测 (每3h) · 绿≥3</div>";
+      c.innerHTML = h;
+    }
+
+    function showKpHist(c) {
+      if (!obsData.length) {
+        c.innerHTML = "<div class=\"dash-loading\">⏳ 实测数据加载中...</div>";
+        loadObserved().then(()=>showKpHist(c));
         return;
       }
-      // 取未来最多18个时间点
-      const points = forecastData.slice(0, 18);
-      let html = '<div class="kp-bar-wrap">';
-      points.forEach(f => {
-        const kp = f.kp;
-        const pct = Math.min(100, (kp / 9) * 100);
-        let color = '#6b7280';
-        if (kp >= 7) color = '#f87171';
-        else if (kp >= 5) color = '#fbbf24';
-        else if (kp >= 3) color = '#4ade80';
-        html += `<div style="flex:1;text-align:center">
-          <div class="kp-bar"><div class="kp-bar-fill" style="height:${pct}%;background:${color}"></div></div>
-          <div class="kp-bar-label">${kp.toFixed(1)}</div>
-          <div class="kp-time">${f.time.toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Shanghai'})}</div>
-        </div>`;
+      const pts = obsData.slice(-24);
+      let h = "";
+      pts.forEach(f=>{
+        const pct=Math.min(100,(f.kp/9)*100), clr=kpColor(f.kp);
+        h+=`<div class="kp-history-row"><span class="kp-history-label">${f.time.toLocaleString("zh-CN",{month:"numeric",day:"numeric",hour:"2-digit",timeZone:"Asia/Shanghai"})}</span><div class="kp-history-bar-wrap"><div class="kp-history-bar" style="width:${pct}%;background:${clr}">${f.kp.toFixed(1)}</div></div></div>`;
       });
-      html += '</div>';
-      html += '<div style="margin-top:0.5rem;font-size:0.7rem;color:var(--text-secondary)">NOAA SWPC 3日预测 (每3小时) · 绿色≥3可追逐</div>';
-      container.innerHTML = html;
+      h+="<div style=\"margin-top:0.5rem;font-size:0.7rem;color:var(--text-secondary)\">NOAA 3小时实测 K指数 · 近3天</div>";
+      c.innerHTML = h;
     }
 
-    // ====== KP：近3日实测 ======
-    async function fetchObservedKp() {
-      try {
-        // 用 NOAA 3-hour estimated Kp (包含 observed)
-        const resp = await fetch('https://services.swpc.noaa.gov/products/noaa-estimated-planetary-k-index-3-hour.json');
-        if (!resp.ok) throw new Error('API error');
-        const raw = await resp.json();
-        observedData = [];
-        for (let i = 1; i < raw.length; i++) {
-          const row = raw[i];
-          if (row.length >= 2) {
-            observedData.push({ time: new Date(row[0] + 'Z'), kp: parseFloat(row[1]) });
-          }
-        }
-      } catch(e) { /* 静默失败，使用 fallback */ }
-    }
-
-    function renderKpHistory() {
-      const container = document.getElementById('kp-content');
-      if (!observedData.length) {
-        container.innerHTML = '<div class="dash-loading">⏳ 实测数据加载中，请稍后重试...</div>';
-        fetchObservedKp().then(() => renderKpHistory());
-        return;
-      }
-      // 显示最近24个点（约3天）
-      const points = observedData.slice(-24);
-      let html = '';
-      points.forEach(f => {
-        const kp = f.kp;
-        const pct = Math.min(100, (kp / 9) * 100);
-        let color = '#6b7280';
-        if (kp >= 7) color = '#f87171';
-        else if (kp >= 5) color = '#fbbf24';
-        else if (kp >= 3) color = '#4ade80';
-        html += `<div class="kp-history-row">
-          <span class="kp-history-label">${f.time.toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',timeZone:'Asia/Shanghai'})}</span>
-          <div class="kp-history-bar-wrap"><div class="kp-history-bar" style="width:${pct}%;background:${color}">${kp.toFixed(1)}</div></div>
-        </div>`;
-      });
-      html += '<div style="margin-top:0.5rem;font-size:0.7rem;color:var(--text-secondary)">NOAA 3小时实测行星K指数 · 近3天</div>';
-      container.innerHTML = html;
-    }
-
-    // ====== KP：往年参考（基于太阳活动周期） ======
-    function renderKpReference() {
-      const container = document.getElementById('kp-content');
-      // 2027年处于太阳活动第25周期下降阶段，仍较活跃
-      // 二月历史平均KP≈3-4 (北极圈冬季)
-      container.innerHTML = `
-        <div style="margin-bottom:0.5rem;font-size:0.85rem;color:var(--text-primary)"><strong>二月 · 特罗姆瑟 & 罗佛敦 极光气候</strong></div>
+    function showKpRef(c) {
+      c.innerHTML = `<div style="margin-bottom:0.5rem;font-size:0.85rem;color:var(--text-primary)"><strong>二月 · 北极圈极光气候</strong></div>
         <div class="kp-ref-grid">
-          <div class="kp-ref-item">
-            <div class="ref-val" style="color:var(--accent-aurora)">~30%</div>
-            <div class="ref-label">KP ≥ 3 天数占比</div>
-          </div>
-          <div class="kp-ref-item">
-            <div class="ref-val" style="color:var(--accent-gold)">~12%</div>
-            <div class="ref-label">KP ≥ 5 极光爆发概率</div>
-          </div>
-          <div class="kp-ref-item">
-            <div class="ref-val" style="color:var(--accent-ice)">~3.2</div>
-            <div class="ref-label">二月平均 KP 值</div>
-          </div>
-          <div class="kp-ref-item">
-            <div class="ref-val" style="color:var(--accent-pink)">18:00-02:00</div>
-            <div class="ref-label">极光最佳观测时段</div>
-          </div>
+          <div class="kp-ref-item"><div class="ref-val" style="color:var(--accent-aurora)">~30%</div><div class="ref-label">KP≥3 天数占比</div></div>
+          <div class="kp-ref-item"><div class="ref-val" style="color:var(--accent-gold)">~12%</div><div class="ref-label">KP≥5 极光爆发</div></div>
+          <div class="kp-ref-item"><div class="ref-val" style="color:var(--accent-ice)">~3.2</div><div class="ref-label">二月平均KP值</div></div>
+          <div class="kp-ref-item"><div class="ref-val" style="color:var(--accent-pink)">18-02时</div><div class="ref-label">最佳观测时段</div></div>
         </div>
-        <div class="solar-note">
-          ☀️ <strong>太阳活动周期参考：</strong>2027年处于第25太阳周期下降阶段，太阳活动仍高于周期平均水平。二月是北极圈极光观测的黄金月份，日照短、地磁活动活跃。往年同期数据显示：每3晚约有1晚可见极光。
-        </div>
-        <div style="margin-top:0.5rem;font-size:0.65rem;color:var(--text-secondary);text-align:right">
-          统计来源: GFZ Potsdam Kp Index Archives (1932-2025) & NOAA SWPC
-        </div>`;
+        <div class="solar-note">☀️ <strong>太阳周期：</strong>2027年处第25太阳周期下降阶段，活动仍高于均值。二月是北极圈极光黄金月，每3晚约1晚可见。</div>
+        <div style="margin-top:0.5rem;font-size:0.65rem;color:var(--text-secondary);text-align:right">来源: GFZ Potsdam Kp Archives (1932-2025) & NOAA SWPC</div>`;
     }
 
-    // ====== 获取 KP 数据 ======
-    async function fetchKP() {
-      const container = document.getElementById('kp-content');
+    // ====== 数据加载 ======
+    async function loadObserved() {
       try {
-        const resp = await fetch('https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json');
-        if (!resp.ok) throw new Error('NOAA API error');
-        const raw = await resp.json();
-        forecastData = [];
-        for (let i = 1; i < raw.length; i++) {
-          const row = raw[i];
-          if (row.length >= 2) forecastData.push({ time: new Date(row[0] + 'Z'), kp: parseFloat(row[1]) });
-        }
-        await fetchObservedKp();
-        renderCurrentKpTab();
+        const r = await fetch("https://services.swpc.noaa.gov/products/noaa-estimated-planetary-k-index-3-hour.json");
+        if (!r.ok) throw new Error("HTTP "+r.status);
+        const raw = await r.json();
+        obsData = [];
+        for (let i=1; i<raw.length; i++) { const row=raw[i]; if(row.length>=2) obsData.push({time:new Date(row[0]+"Z"),kp:parseFloat(row[1])}); }
+      } catch(e) { /* 静默 */ }
+    }
+
+    async function loadKp() {
+      try {
+        const r = await fetch("https://services.swpc.noaa.gov/products/noaa-planetary-k-index-forecast.json");
+        if (!r.ok) throw new Error("HTTP "+r.status);
+        const raw = await r.json();
+        fcData = [];
+        for (let i=1; i<raw.length; i++) { const row=raw[i]; if(row.length>=2) fcData.push({time:new Date(row[0]+"Z"),kp:parseFloat(row[1])}); }
+        await loadObserved();
+        showKpTab();
       } catch(e) {
-        container.innerHTML = `<div class="dash-error">⚠️ 极光数据加载失败<br><small>${e.message}</small><br><small>请稍后刷新重试</small></div>`;
+        const container = document.getElementById("kp-content");
+        container.innerHTML = `<div class="dash-error">⚠️ NOAA 数据获取失败<br><small>${e.message}</small></div><div style="margin-top:0.75rem;text-align:center"><button onclick="location.reload()" style="background:var(--bg-card);color:var(--accent-ice);border:1px solid var(--border);padding:0.3rem 0.8rem;border-radius:6px;cursor:pointer;font-size:0.8rem">点击重试</button></div>`;
       }
     }
 
-    // ====== 初始化 ======
-    fetchWeather('tromso');
-    renderTripWeather();
-    fetchKP();
+    // ====== 启动 ======
+    renderWxSkeleton();
+    showTripWx();
+    showKpRef(document.getElementById("kp-content"));
+    loadWeather();
+    loadKp();
 
-    // 每30分钟刷新
-    setInterval(() => {
-      fetchWeather(currentCity);
-      renderTripWeather();
-      fetchKP();
-    }, 30 * 60 * 1000);
+    setInterval(() => { loadWeather(); showTripWx(); loadKp(); }, 30*60*1000);
+    } catch(e) { console.warn('Dashboard error:', e.message); }
   })();
 
   // ==================== 原有功能 ====================
