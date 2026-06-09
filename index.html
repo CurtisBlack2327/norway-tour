@@ -1520,6 +1520,9 @@
       grid.innerHTML = h;
     }
 
+    // ====== KP 状态 ======
+    let kpLoaded = false;  // 数据是否已加载完成
+
     // ====== KP Tab 切换 ======
     document.querySelectorAll(".kp-tab").forEach(b => {
       b.addEventListener("click", function() {
@@ -1532,11 +1535,12 @@
 
     function showKpTab() {
       const c = document.getElementById("kp-content");
+      if (!c) return;
       switch(kpTab) {
-        case "realtime":  showKpLive(c); break;
-        case "forecast":  showKpFc(c); break;
-        case "history":   showKpHist(c); break;
-        case "reference": showKpRef(c); break;
+        case "realtime":  return kpLoaded ? showKpLive(c) : showKpWaiting(c);
+        case "forecast":  return kpLoaded ? showKpFc(c) : showKpWaiting(c);
+        case "history":   return kpLoaded ? showKpHist(c) : showKpWaiting(c);
+        case "reference": return showKpRef(c);
       }
     }
 
@@ -1549,8 +1553,13 @@
       return"🔥 极光大爆发！极其罕见的高强度，千万不要错过今晚！";
     }
 
+    function showKpWaiting(c) {
+      c.innerHTML = `<div class="dash-loading">⏳ 正在从 NOAA SWPC 获取实时数据...</div>
+        <div style="margin-top:0.75rem">${kpRefContent()}</div>`;
+    }
+
     function showKpLive(c) {
-      if (!fcData.length) { c.innerHTML = "<div class=\"dash-loading\">⏳ 极光数据加载中，请稍候...</div>"; return; }
+      if (!fcData.length) { showKpWaiting(c); return; }
       const now = new Date();
       let best=fcData[0], bestDist=Infinity;
       fcData.forEach(f=>{const d=Math.abs(f.time-now);if(d<bestDist){bestDist=d;best=f;}});
@@ -1562,7 +1571,7 @@
     }
 
     function showKpFc(c) {
-      if (!fcData.length) { c.innerHTML = "<div class=\"dash-loading\">⏳ 预测加载中...</div>"; return; }
+      if (!fcData.length) { showKpWaiting(c); return; }
       const pts = fcData.slice(0,18);
       let h = "<div class=\"kp-bar-wrap\">";
       pts.forEach(f=>{
@@ -1574,11 +1583,7 @@
     }
 
     function showKpHist(c) {
-      if (!obsData.length) {
-        c.innerHTML = "<div class=\"dash-loading\">⏳ 实测数据加载中...</div>";
-        loadObserved().then(()=>showKpHist(c));
-        return;
-      }
+      if (!obsData.length) { showKpWaiting(c); return; }
       const pts = obsData.slice(-24);
       let h = "";
       pts.forEach(f=>{
@@ -1589,8 +1594,8 @@
       c.innerHTML = h;
     }
 
-    function showKpRef(c) {
-      c.innerHTML = `<div style="margin-bottom:0.5rem;font-size:0.85rem;color:var(--text-primary)"><strong>二月 · 北极圈极光气候</strong></div>
+    function kpRefContent() {
+      return `<div style="margin-bottom:0.5rem;font-size:0.85rem;color:var(--text-primary)"><strong>二月 · 北极圈极光气候</strong> <small style="color:var(--text-secondary)">(往年参考)</small></div>
         <div class="kp-ref-grid">
           <div class="kp-ref-item"><div class="ref-val" style="color:var(--accent-aurora)">~30%</div><div class="ref-label">KP≥3 天数占比</div></div>
           <div class="kp-ref-item"><div class="ref-val" style="color:var(--accent-gold)">~12%</div><div class="ref-label">KP≥5 极光爆发</div></div>
@@ -1601,9 +1606,12 @@
         <div style="margin-top:0.5rem;font-size:0.65rem;color:var(--text-secondary);text-align:right">来源: GFZ Potsdam Kp Archives (1932-2025) & NOAA SWPC</div>`;
     }
 
+    function showKpRef(c) {
+      c.innerHTML = kpRefContent();
+    }
+
     // ====== 数据加载 ======
     function parseKpData(raw) {
-      // 兼容两种格式: 二维数组 (旧版 CSV) 和对象数组 (新版 JSON)
       const result = [];
       for (let i = 1; i < raw.length; i++) {
         const row = raw[i];
@@ -1635,18 +1643,29 @@
         if (!r.ok) throw new Error("HTTP "+r.status);
         fcData = parseKpData(await r.json());
         await loadObserved();
-        // 数据加载完成后刷新当前 tab，如果当前是参考 tab 则切换到实时
-        if (kpTab === "reference") kpTab = "realtime";
+        kpLoaded = true;
+        // 如果用户没有主动切换到参考 tab，自动展示实时数据
+        if (kpTab === "reference") {
+          kpTab = "realtime";
+          document.querySelectorAll(".kp-tab").forEach(b => {
+            b.classList.toggle("active", b.dataset.tab === "realtime");
+          });
+        }
         showKpTab();
       } catch(e) {
-        const container = document.getElementById("kp-content");
-        container.innerHTML = `<div class="dash-error">⚠️ NOAA 数据获取失败<br><small>${e.message}</small></div><div style="margin-top:0.75rem;text-align:center"><button onclick="location.reload()" style="background:var(--bg-card);color:var(--accent-ice);border:1px solid var(--border);padding:0.3rem 0.8rem;border-radius:6px;cursor:pointer;font-size:0.8rem">点击重试</button></div>`;
+        kpLoaded = false;
+        // 只在实时/预测/实测 tab 上显示错误，保留参考数据的可见性
+        if (kpTab !== "reference") {
+          const container = document.getElementById("kp-content");
+          if (container) container.innerHTML = `<div class="dash-error">⚠️ NOAA 数据获取失败<br><small>${e.message} — 可查看"往年参考"tab</small></div>`;
+        }
       }
     }
 
     // ====== 启动 ======
     renderWxSkeleton();
     showTripWx();
+    // 默认展示往年参考 (始终可用), 后台加载 NOAA 数据
     showKpRef(document.getElementById("kp-content"));
     loadWeather();
     loadKp();
