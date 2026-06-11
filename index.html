@@ -262,6 +262,17 @@
     display: flex; justify-content: space-between;
     color: var(--text-primary);
   }
+  .budget-range { display: flex; align-items: baseline; gap: 0.3rem; margin: 0.5rem 0; }
+  .budget-low { color: var(--accent-aurora); font-weight: 700; font-size: 1.1rem; }
+  .budget-high { color: var(--accent-gold); font-weight: 700; font-size: 1.1rem; }
+  .budget-sep { color: var(--text-secondary); font-size: 0.85rem; }
+  .budget-note { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.3rem; }
+  .cruise-conclusion {
+    margin-top: 1rem; padding: 0.75rem 1rem;
+    background: rgba(74,222,128,0.06);
+    border: 1px solid rgba(74,222,128,0.2);
+    border-radius: 8px; font-size: 0.85rem; color: var(--text-secondary);
+  }
 
   /* Tips */
   .tips-grid {
@@ -525,6 +536,159 @@
       background: white; border: 1px solid #ddd; break-inside: avoid;
     }
   }
+
+  /* ====== Route Selector ====== */
+  .route-selector-wrap {
+    position: sticky; top: 58px; z-index: 99;
+    background: rgba(10, 14, 30, 0.92);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 0;
+  }
+  .route-selector {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; gap: 0.4rem;
+    padding: 0 1.5rem; flex-wrap: wrap;
+  }
+  .route-label {
+    font-size: 0.75rem; color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-right: 0.5rem; white-space: nowrap;
+  }
+  .route-tab {
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.8rem; font-family: inherit;
+    transition: all 0.25s;
+    white-space: nowrap;
+  }
+  .route-tab:hover { border-color: var(--accent-ice); color: var(--text-primary); }
+  .route-tab.active {
+    background: rgba(125, 211, 252, 0.12);
+    border-color: var(--accent-ice);
+    color: var(--accent-ice);
+    box-shadow: 0 0 12px rgba(125, 211, 252, 0.15);
+  }
+  .route-tab-badge {
+    display: block; font-size: 0.62rem; color: var(--text-secondary);
+    font-weight: 400; line-height: 1.3;
+  }
+  .route-subtabs {
+    display: none; gap: 0.3rem; margin-left: 0.5rem;
+  }
+  .route-subtabs.visible { display: flex; }
+  .route-subtab {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.72rem; font-family: inherit;
+    transition: all 0.25s;
+    white-space: nowrap;
+  }
+  .route-subtab:hover { border-color: var(--accent-aurora); color: var(--text-primary); }
+  .route-subtab.active {
+    background: rgba(168, 85, 247, 0.12);
+    border-color: var(--accent-aurora);
+    color: var(--accent-aurora);
+  }
+  .route-subdivider {
+    width: 1px; height: 20px; background: var(--border);
+    margin: 0 0.3rem;
+  }
+
+  /* ====== Photo Cards ====== */
+  .day-photos {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem; margin-top: 1.25rem;
+  }
+  .photo-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .photo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  }
+  .photo-card img {
+    width: 100%; height: 180px; object-fit: cover; display: block;
+  }
+  .photo-placeholder {
+    width: 100%; height: 180px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, #141830, #0d3030);
+    color: var(--text-secondary); font-size: 0.82rem;
+    padding: 1rem; gap: 0.4rem;
+  }
+  .photo-placeholder span { font-weight: 600; color: var(--text-primary); }
+  .photo-placeholder a {
+    color: var(--accent-ice); font-size: 0.7rem;
+    text-decoration: underline; text-underline-offset: 2px;
+  }
+  .photo-caption {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.72rem; color: var(--text-secondary);
+    line-height: 1.4;
+  }
+  .photo-credit {
+    color: var(--accent-ice); font-size: 0.65rem;
+  }
+
+  /* ====== Budget Comparison Table ====== */
+  .budget-compare {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .budget-compare h3 {
+    font-size: 1.15rem; color: var(--accent-gold);
+    margin-bottom: 1rem;
+  }
+  .budget-compare-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.82rem; overflow-x: auto; display: block;
+  }
+  .budget-compare-table thead th {
+    background: rgba(125,211,252,0.08);
+    padding: 0.7rem 0.8rem; text-align: center;
+    font-weight: 600; color: var(--text-primary);
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .budget-compare-table thead th.route-label-col { text-align: left; min-width: 100px; }
+  .budget-compare-table tbody td {
+    padding: 0.55rem 0.8rem; text-align: center;
+    border: 1px solid var(--border);
+  }
+  .budget-compare-table tbody td.cat-label {
+    text-align: left; font-weight: 500; color: var(--text-primary);
+  }
+  .budget-compare-table tbody tr.total-row td {
+    font-weight: 700; color: var(--accent-gold);
+    border-top: 2px solid var(--accent-gold);
+  }
+  .budget-compare-table .active-col {
+    background: rgba(125,211,252,0.06);
+  }
+
+  @media (max-width: 768px) {
+    .route-selector { gap: 0.3rem; padding: 0 0.8rem; }
+    .route-tab { padding: 0.35rem 0.6rem; font-size: 0.7rem; }
+    .route-subtab { padding: 0.3rem 0.5rem; font-size: 0.65rem; }
+    .day-photos { grid-template-columns: 1fr; }
+    .budget-compare-table { font-size: 0.7rem; }
+    .budget-compare-table thead th,
+    .budget-compare-table tbody td { padding: 0.4rem 0.5rem; }
+  }
 </style>
 </head>
 <body>
@@ -546,6 +710,30 @@
     </ul>
   </div>
 </nav>
+
+<!-- Route Version Selector -->
+<div class="route-selector-wrap" id="route-selector">
+  <div class="route-selector">
+    <span class="route-label">选择路线</span>
+    <button class="route-tab active" data-route="v1">
+      经典极光线
+      <span class="route-tab-badge">Oslo+Tromsø+Lofoten · 9天</span>
+    </button>
+    <button class="route-tab" data-route="v2">
+      峡湾极光线
+      <span class="route-tab-badge">+Bergen · 12-14天</span>
+    </button>
+    <button class="route-tab" data-route="v3" id="v3-tab">
+      更多路线
+      <span class="route-tab-badge">探索更多可能</span>
+    </button>
+    <span class="route-subdivider"></span>
+    <div class="route-subtabs" id="route-subtabs">
+      <button class="route-subtab active" data-subroute="v3a">3A · 峡湾深度</button>
+      <button class="route-subtab" data-subroute="v3b">3B · 极地探险</button>
+    </div>
+  </div>
+</div>
 
 <!-- Hero -->
 <header class="hero">
@@ -599,440 +787,21 @@
   <section class="section" id="itinerary">
     <h2 class="section-title"><span class="icon">📅</span>每日行程</h2>
 
-    <div class="timeline">
-
-      <!-- Day 1 -->
-      <div class="day-card">
-        <div class="day-header">
-          <span class="day-number">Day 1</span>
-          <span class="day-date">2月4日 周四</span>
-          <span class="day-location">📍 香港 → 伊斯坦布尔 → 奥斯陆</span>
-        </div>
-        <div class="day-content">
-          <p>搭乘<span class="highlight">土耳其航空</span>从香港国际机场出发，经伊斯坦布尔中转，抵达奥斯陆加勒穆恩机场（OSL）。</p>
-          <ul class="activity-list">
-            <li><span class="activity-icon">✈️</span> <strong>航班参考：</strong>TK071 HKG-IST 23:15→05:50 (+1)，中转约3小时，TK1751 IST-OSL 09:00→11:45</li>
-            <li><span class="activity-icon">🏨</span> 入住奥斯陆机场附近酒店（Radisson Blu Airport Hotel 或 Scandic Oslo Airport），调整时差，为明日北上做准备</li>
-            <li><span class="activity-icon">🍽️</span> 晚餐可在机场或酒店解决，推荐尝试挪威三文鱼</li>
-          </ul>
-          <div class="tags">
-            <span class="tag tag-activity">长途飞行</span>
-            <span class="tag tag-food">挪威美食初体验</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Day 2 -->
-      <div class="day-card">
-        <div class="day-header">
-          <span class="day-number">Day 2</span>
-          <span class="day-date">2月5日 周五</span>
-          <span class="day-location">📍 奥斯陆 → 特罗姆瑟</span>
-        </div>
-        <div class="day-content">
-          <p>清晨从奥斯陆飞往北极之门<span class="highlight">特罗姆瑟（Tromsø）</span>，正式开始北极圈探险！</p>
-          <ul class="activity-list">
-            <li><span class="activity-icon">✈️</span> <strong>航班参考：</strong>Norwegian DY370 OSL-TOS 08:30→10:20（约2小时），挪威航空或SAS每天多班</li>
-            <li><span class="activity-icon">🏙️</span> 抵达后游览<strong>特罗姆瑟市中心</strong>：彩色木屋街区、港口漫步、Polaria水族馆</li>
-            <li><span class="activity-icon">🍔</span> 打卡<strong>世界最北麦当劳</strong>，尝三文鱼汉堡</li>
-            <li><span class="activity-icon">⛪</span> 傍晚参观<strong>北极大教堂</strong>（Ishavskatedralen），三角形建筑在雪山下格外壮观</li>
-            <li><span class="activity-icon">🚠</span> 搭乘<strong>Fjellheisen缆车</strong>登顶Storsteinen山（海拔421米），俯瞰特罗姆瑟全景与峡湾日落</li>
-            <li><span class="activity-icon">🌌</span> <strong>夜间：第一次极光追光团！</strong>参加MiniBus小团（10人左右），由极光猎人带领前往最佳观测点，约18:00-01:00</li>
-          </ul>
-          <div class="tags">
-            <span class="tag tag-aurora">极光追光 #1</span>
-            <span class="tag tag-photo">缆车全景</span>
-            <span class="tag tag-activity">城市探索</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Day 3 -->
-      <div class="day-card">
-        <div class="day-header">
-          <span class="day-number">Day 3</span>
-          <span class="day-date">2月6日 周六</span>
-          <span class="day-location">📍 特罗姆瑟</span>
-        </div>
-        <div class="day-content">
-          <p>充满活力的一天！上午体验北极特色活动，下午探索文化与自然。</p>
-          <ul class="activity-list">
-            <li><span class="activity-icon">🐾</span> <strong>上午：狗拉雪橇（Dog Sledding）</strong> — 推荐 Tromsø Villmarkssenter 或 Arctic Adventure Tours，在雪原上由一群哈士奇拉着飞驰，全程约3-4小时，含热饮和小食（约1800-2200 NOK/人）</li>
-            <li><span class="activity-icon">🏛️</span> 下午参观<strong>极地博物馆</strong>（Polarmuseet），了解北极探险与狩猎历史</li>
-            <li><span class="activity-icon">🍺</span> 前往<strong>Ølhallen酒吧</strong>（Mack啤酒厂），品尝世界最北端啤酒厂的精酿</li>
-            <li><span class="activity-icon">🦌</span> 可选：<strong>萨米文化体验+驯鹿雪橇</strong>，了解北欧原住民萨米人的生活传统，亲手喂食驯鹿</li>
-            <li><span class="activity-icon">🌌</span> <strong>夜间：极光峡湾游轮</strong> — 换一种方式追极光，在温暖船舱内边享用晚餐边等待极光，远离城市灯光污染</li>
-          </ul>
-          <div class="tags">
-            <span class="tag tag-activity">狗拉雪橇</span>
-            <span class="tag tag-aurora">极光游轮 #2</span>
-            <span class="tag tag-food">精酿啤酒</span>
-            <span class="tag tag-photo">萨米文化</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Day 4 -->
-      <div class="day-card">
-        <div class="day-header">
-          <span class="day-number">Day 4</span>
-          <span class="day-date">2月7日 周日</span>
-          <span class="day-location">📍 特罗姆瑟</span>
-        </div>
-        <div class="day-content">
-          <p>深入峡湾，在北极海域邂逅海洋巨兽，这是特罗姆瑟冬季独有的体验。</p>
-          <ul class="activity-list">
-            <li><span class="activity-icon">🐋</span> <strong>全天：观鲸之旅（Whale Watching）</strong> — 2月是观赏座头鲸和虎鲸的最后时机！前往Skjervøy海域，鲸群在此觅食鲱鱼。推荐 Silent Whale Watching（电动船，无噪音干扰鲸群），约7:00-16:00，含午餐和热饮（约1800-2500 NOK/人）</li>
-            <li><span class="activity-icon">📸</span> 傍晚前往<strong>Kvaløya（鲸岛）</strong>沿岸：Ersfjordbotn峡湾村是极光摄影师的最爱，峡湾水面倒映雪山与极光</li>
-            <li><span class="activity-icon">🌌</span> <strong>夜间：第三次极光拍摄</strong> — 如天气允许，前往Sommarøy或继续在Kvaløya区域追光，这是最后一天在特罗姆瑟的极光机会</li>
-          </ul>
-          <div class="tags">
-            <span class="tag tag-activity">观鲸</span>
-            <span class="tag tag-aurora">极光拍摄 #3</span>
-            <span class="tag tag-photo">峡湾摄影</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Day 5 -->
-      <div class="day-card">
-        <div class="day-header">
-          <span class="day-number">Day 5</span>
-          <span class="day-date">2月8日 周一</span>
-          <span class="day-location">📍 特罗姆瑟 → 罗佛敦群岛（斯沃尔韦尔）</span>
-        </div>
-        <div class="day-content">
-          <p>告别特罗姆瑟，前往被誉为<span class="highlight">"世界最美群岛"</span>的罗佛敦。选择飞行更方便省时。</p>
-          <ul class="activity-list">
-            <li><span class="activity-icon">✈️</span> <strong>推荐方案：</strong>Widerøe航空 TOS → SVJ（斯沃尔韦尔机场），经Bodø转机，约2.5小时。或飞往Evenes机场（EVE），再租车自驾约2.5小时到斯沃尔韦尔</li>
-            <li><span class="activity-icon">🚗</span> <strong>备选方案（自驾）：</strong>沿E8→E6→E10公路，全程约435公里/6.5小时，冬季需四驱+雪胎，沿途雪山峡湾景色壮美</li>
-            <li><span class="activity-icon">🏘️</span> 抵达斯沃尔韦尔后，漫步港口，欣赏<strong>山妖峡湾（Trollfjord）</strong>入口处的壮丽山景</li>
-            <li><span class="activity-icon">🏨</span> 入住斯沃尔韦尔（Thon Hotel Svolvær 或 Svinøya Rorbuer 传统渔夫小屋）</li>
-            <li><span class="activity-icon">🍽️</span> 晚餐推荐 Børsen Spiseri，品尝新鲜北极鳕鱼（Skrei）</li>
-          </ul>
-          <div class="tags">
-            <span class="tag tag-activity">飞行/自驾</span>
-            <span class="tag tag-photo">群岛初印象</span>
-            <span class="tag tag-food">北极鳕鱼</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Day 6 -->
-      <div class="day-card">
-        <div class="day-header">
-          <span class="day-number">Day 6</span>
-          <span class="day-date">2月9日 周二</span>
-          <span class="day-location">📍 罗佛敦：斯沃尔韦尔 → 亨宁斯韦尔 → 雷讷</span>
-        </div>
-        <div class="day-content">
-          <p>沿<span class="highlight">E10公路</span>南下，这是罗佛敦最精华的景观公路，每个转弯都是明信片级别的风景。</p>
-          <ul class="activity-list">
-            <li><span class="activity-icon">🦅</span> <strong>上午：海鹰巡游（Eagle Safari）</strong> — 从斯沃尔韦尔乘RIB快艇进入山妖峡湾，近距离观赏白尾海鹰在雪山峡湾间翱翔（约2小时，900-1200 NOK/人）</li>
-            <li><span class="activity-icon">⚽</span> 驱车前往<strong>亨宁斯韦尔（Henningsvær）</strong> — "挪威威尼斯"，打卡著名的<strong>海上足球场</strong>，在礁石上建成的球场堪称世界最美</li>
-            <li><span class="activity-icon">🏘️</span> 继续南下，探访<strong>Nusfjord</strong> — UNESCO文化遗产候选地，保存完好的百年渔村，红色渔屋在雪山映衬下如童话世界</li>
-            <li><span class="activity-icon">📸</span> 傍晚抵达<strong>雷讷（Reine）</strong>，在Hamnøy桥拍摄经典明信片角度 — 红色渔夫小屋 + 雪山倒影</li>
-            <li><span class="activity-icon">🏨</span> 入住雷讷/哈姆诺伊的<strong>Rorbuer渔夫小屋</strong>（推荐 Eliassen Rorbuer 或 Reine Rorbuer）</li>
-            <li><span class="activity-icon">🌌</span> <strong>夜间：罗佛敦极光</strong> — 走出小屋即可追光！Hamnøy桥、Reinebringen山脚都是绝佳极光前景地</li>
-          </ul>
-          <div class="tags">
-            <span class="tag tag-activity">海鹰巡游</span>
-            <span class="tag tag-photo">经典机位打卡</span>
-            <span class="tag tag-aurora">罗佛敦极光 #4</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Day 7 -->
-      <div class="day-card">
-        <div class="day-header">
-          <span class="day-number">Day 7</span>
-          <span class="day-date">2月10日 周三</span>
-          <span class="day-location">📍 罗佛敦：雷讷 → Å镇 → 白沙滩</span>
-        </div>
-        <div class="day-content">
-          <p>深度探索罗佛敦群岛最南端，感受世界尽头的宁静与壮美。</p>
-          <ul class="activity-list">
-            <li><span class="activity-icon">🏘️</span> 清晨拍摄<strong>雷讷日出</strong>（2月约8:30日出），粉色晨光照亮雪山，是摄影师梦寐以求的画面</li>
-            <li><span class="activity-icon">📸</span> 驱车前往<strong>Sakrisøya</strong>，拍摄黄色渔屋（Rorbuer）经典场景，推荐在 <strong>Anitas Seafood</strong> 品尝海鲜汤和三文鱼汉堡</li>
-            <li><span class="activity-icon">🏁</span> 抵达<strong>Å镇</strong> — E10公路的尽头，世界最短地名（只有一个字母！），参观挪威渔业博物馆和古老面包店</li>
-            <li><span class="activity-icon">🏖️</span> <strong>Ramberg白沙滩</strong> — 北极圈内的白色沙滩，碧蓝海水与雪山同框，冬季人少更显静谧</li>
-            <li><span class="activity-icon">📸</span> 日落时分前往<strong>Uttakleiv Beach</strong> 或 <strong>Skagsanden Beach</strong>，这是罗佛敦最著名的海滩摄影点，也是极光拍摄的绝佳前景</li>
-            <li><span class="activity-icon">🔥</span> 夜晚在渔夫小屋内点燃壁炉，享受北欧式hygge时光</li>
-          </ul>
-          <div class="tags">
-            <span class="tag tag-photo">日出日落</span>
-            <span class="tag tag-food">海鲜美食</span>
-            <span class="tag tag-activity">峡湾公路</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Day 8 -->
-      <div class="day-card">
-        <div class="day-header">
-          <span class="day-number">Day 8</span>
-          <span class="day-date">2月11日 周四</span>
-          <span class="day-location">📍 罗佛敦 → 奥斯陆</span>
-        </div>
-        <div class="day-content">
-          <p>告别北极圈，返回挪威首都，在奥斯陆享受半日城市漫步。</p>
-          <ul class="activity-list">
-            <li><span class="activity-icon">✈️</span> <strong>航班参考：</strong>从Leknes（LKN）或Svolvær（SVJ）飞往奥斯陆，经Bodø转机，约3-4小时（Widerøe + SAS/Norwegian联运）</li>
-            <li><span class="activity-icon">🚶</span> 下午游览<strong>奥斯陆歌剧院</strong>（Oslo Opera House）— 可走到屋顶俯瞰峡湾，建筑本身就是艺术品</li>
-            <li><span class="activity-icon">🏙️</span> 漫步<strong>Aker Brygge</strong>海滨区，现代建筑与历史码头交相辉映</li>
-            <li><span class="activity-icon">🎨</span> 可选：参观<strong>蒙克美术馆</strong>（MUNCH），近距离欣赏《呐喊》</li>
-            <li><span class="activity-icon">🍽️</span> 告别晚宴推荐：<strong>Maaemo</strong>（米其林三星，需提前数月预订）或 <strong>Lofoten Fiskerestaurant</strong>（海鲜餐厅）</li>
-            <li><span class="activity-icon">🏨</span> 入住奥斯陆市中心（Clarion Hotel The Hub 或 Thon Hotel Opera）</li>
-          </ul>
-          <div class="tags">
-            <span class="tag tag-activity">城市漫步</span>
-            <span class="tag tag-food">告别晚宴</span>
-            <span class="tag tag-photo">建筑摄影</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Day 9 -->
-      <div class="day-card">
-        <div class="day-header">
-          <span class="day-number">Day 9</span>
-          <span class="day-date">2月12日 周五</span>
-          <span class="day-location">📍 奥斯陆 → 伊斯坦布尔 → 香港</span>
-        </div>
-        <div class="day-content">
-          <p>旅程的最后一天，上午还有时间感受奥斯陆的冬日气息。</p>
-          <ul class="activity-list">
-            <li><span class="activity-icon">🌳</span> 上午游览<strong>维格兰雕塑公园</strong>（Vigelandsparken）— 200多座人体雕塑在雪中格外动人，免费开放</li>
-            <li><span class="activity-icon">🚢</span> 可选：参观<strong>维京船博物馆</strong>或<strong>弗拉姆极地探险船博物馆</strong></li>
-            <li><span class="activity-icon">🛍️</span> 在Karl Johans gate购物街购买纪念品：挪威毛衣（Dale of Norway）、鱼油、巧克力（Freia）</li>
-            <li><span class="activity-icon">🚄</span> 提前2.5小时乘Flytoget机场快线（20分钟）前往OSL机场</li>
-            <li><span class="activity-icon">✈️</span> <strong>航班参考：</strong>TK1754 OSL-IST 14:00→19:30，TK070 IST-HKG 01:30 (+1)→17:00 (+1)</li>
-          </ul>
-          <div class="tags">
-            <span class="tag tag-activity">城市漫步</span>
-            <span class="tag tag-food">购物纪念</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div class="timeline" id="timeline-container"></div>
   </section>
 
   <!-- Transport -->
   <section class="section" id="transport">
     <h2 class="section-title"><span class="icon">🚌</span>交通详情与建议</h2>
 
-    <h3 style="color:var(--accent-ice);margin-bottom:1rem">✈️ 国际段 · 香港 — 奥斯陆往返</h3>
-    <table class="transport-table">
-      <thead>
-        <tr><th>航段</th><th>推荐航班</th><th>航司</th><th>时间</th><th>备注</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>HKG → IST</td>
-          <td>TK071</td>
-          <td>土耳其航空</td>
-          <td>约11小时</td>
-          <td>深夜出发，机上过夜</td>
-        </tr>
-        <tr>
-          <td>IST → OSL</td>
-          <td>TK1751</td>
-          <td>土耳其航空</td>
-          <td>约4小时</td>
-          <td>中转3小时，当日抵达</td>
-        </tr>
-        <tr>
-          <td>OSL → IST</td>
-          <td>TK1754</td>
-          <td>土耳其航空</td>
-          <td>约4小时</td>
-          <td>下午出发</td>
-        </tr>
-        <tr>
-          <td>IST → HKG</td>
-          <td>TK070</td>
-          <td>土耳其航空</td>
-          <td>约11小时</td>
-          <td>次日抵达香港</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3 style="color:var(--accent-ice);margin:2rem 0 1rem">🇳🇴 挪威国内段</h3>
-    <table class="transport-table">
-      <thead>
-        <tr><th>航段</th><th>推荐航班</th><th>航司</th><th>时间</th><th>票价参考</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>OSL → TOS</td>
-          <td>DY370</td>
-          <td>Norwegian</td>
-          <td>约2小时</td>
-          <td>800-1500 NOK</td>
-        </tr>
-        <tr>
-          <td>TOS → SVJ/EVE</td>
-          <td>WF867</td>
-          <td>Widerøe</td>
-          <td>约2.5小时（经Bodø）</td>
-          <td>1500-3000 NOK</td>
-        </tr>
-        <tr>
-          <td>LKN/SVJ → OSL</td>
-          <td>WF+SK</td>
-          <td>Widerøe+SAS</td>
-          <td>约3-4小时（经Bodø）</td>
-          <td>2000-3500 NOK</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3 style="color:var(--accent-ice);margin:2rem 0 1rem">🚗 罗佛敦自驾建议</h3>
-    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin:1rem 0">
-      <ul class="activity-list">
-        <li><span class="activity-icon">🚙</span> 在Evenes机场或Svolvær租车，推荐 <strong>Hertz / Sixt / Avis</strong>，务必选择<strong>四驱SUV + 冬季钉胎</strong></li>
-        <li><span class="activity-icon">📱</span> 下载 <strong>EasyPark APP</strong> 用于停车缴费（挪威基本无人工收费）</li>
-        <li><span class="activity-icon">🗺️</span> 提前下载 <strong>Google Maps 离线地图</strong> 和挪威道路APP <strong>Vegvesen</strong>（查看实时路况）</li>
-        <li><span class="activity-icon">⚠️</span> 冬季驾驶要点：始终靠边、弯道提前减速、看红色雪杆指示路缘、预留1.5倍行车时间</li>
-        <li><span class="activity-icon">⛴️</span> 如需轮渡，使用 <strong>AutoPASS</strong> 自动扣费（租车公司通常已配备）</li>
-      </ul>
-    </div>
-
-    <h3 style="color:var(--accent-ice);margin:2rem 0 1rem">🚢 特罗姆瑟 → 罗佛敦：游轮方案对比</h3>
-    <p style="color:var(--text-secondary);margin-bottom:1rem">除了飞行和自驾，<span class="highlight">海达路德（Hurtigruten）与哈维拉（Havila）</span>沿海游轮提供了一种独特的旅行方式——在欣赏挪威海岸线的同时完成两城之间的位移。</p>
-    <table class="transport-table">
-      <thead>
-        <tr><th></th><th>✈️ 飞行</th><th>🚗 自驾</th><th>🚢 沿海游轮</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>耗时</strong></td>
-          <td>2.5小时（经Bodø转机）</td>
-          <td>6.5小时（435公里）</td>
-          <td style="color:var(--accent-aurora)"><strong>17-18小时</strong></td>
-        </tr>
-        <tr>
-          <td><strong>费用</strong></td>
-          <td>1,500-3,000 NOK</td>
-          <td>租车+油费≈2,500-4,000 NOK</td>
-          <td style="color:var(--accent-gold)"><strong>3,000-4,300 NOK</strong></td>
-        </tr>
-        <tr>
-          <td><strong>班次</strong></td>
-          <td>每天多班</td>
-          <td>随时出发</td>
-          <td>每天1班（通常傍晚离港）</td>
-        </tr>
-        <tr>
-          <td><strong>风景体验</strong></td>
-          <td>⚠️ 高空俯瞰，有限</td>
-          <td>✅ 雪山峡湾公路</td>
-          <td style="color:var(--accent-aurora)"><strong>✅✅ 全程海岸线，峡湾+极光</strong></td>
-        </tr>
-        <tr>
-          <td><strong>舒适度</strong></td>
-          <td>一般</td>
-          <td>冬季疲劳，需专注驾驶</td>
-          <td style="color:var(--accent-aurora)"><strong>高 — 船舱休息、餐厅、观景甲板</strong></td>
-        </tr>
-        <tr>
-          <td><strong>冬季风险</strong></td>
-          <td>航班可能因天气取消</td>
-          <td>⚠️ 路面结冰、暴风雪</td>
-          <td>大风浪可能导致延误</td>
-        </tr>
-        <tr>
-          <td><strong>适合人群</strong></td>
-          <td>追求效率的旅客</td>
-          <td>有雪地驾驶经验者</td>
-          <td style="color:var(--accent-aurora)"><strong>想体验挪威航海文化、不赶时间的旅行者</strong></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem">
-      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1.25rem">
-        <h4 style="color:var(--accent-aurora);margin-bottom:0.5rem">👍 游轮优势</h4>
-        <ul style="color:var(--text-secondary);font-size:0.9rem;padding-left:1.25rem">
-          <li>一觉醒来已到罗佛敦，不占用白天游玩时间</li>
-          <li>甲板追极光 — 海上无光污染，视野开阔</li>
-          <li>途经塞尼亚岛、Vesterålen群岛，风景绝美</li>
-          <li>舱内有独立卫浴，可洗澡休息</li>
-          <li>船上餐厅供应挪威海鲜自助</li>
-        </ul>
-      </div>
-      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1.25rem">
-        <h4 style="color:var(--accent-gold);margin-bottom:0.5rem">👎 游轮劣势</h4>
-        <ul style="color:var(--text-secondary);font-size:0.9rem;padding-left:1.25rem">
-          <li>耗时17+小时，相当于Day 5白天都在海上</li>
-          <li>班次单一（每天仅一班），错过需等24小时</li>
-          <li>价格和飞行+一晚酒店相当，无成本优势</li>
-          <li>冬季海面风浪大，易晕船者慎选</li>
-          <li>抵达时间为清晨，需等待酒店入住</li>
-        </ul>
-      </div>
-    </div>
-
-    <p style="color:var(--text-secondary);margin-top:1rem;font-size:0.9rem">
-      <strong>结论：</strong>对于本次9天8晚的紧凑行程，<span class="highlight">推荐飞行方案</span>，将节省的白天时间留给罗佛敦的探索。如果时间充裕（10天以上），或者对挪威航海文化特别感兴趣，游轮是绝佳的体验式交通。预订可访问 <a href="https://www.hurtigruten.com/" target="_blank" style="color:var(--accent-ice)">Hurtigruten.com</a> 或 <a href="https://www.havilavoyages.com/" target="_blank" style="color:var(--accent-ice)">HavilaVoyages.com</a>。
-    </p>
+    <div id="transport-content"></div>
   </section>
 
   <!-- Budget -->
   <section class="section" id="budget">
-    <h2 class="section-title"><span class="icon">💰</span>预算参考（每人）</h2>
-
-    <div class="budget-grid">
-      <div class="budget-card">
-        <h4>✈️ 机票</h4>
-        <div class="budget-item"><span>香港—奥斯陆往返（土航）</span><span class="price">~7,000-10,000</span></div>
-        <div class="budget-item"><span>挪威国内三段飞行</span><span class="price">~4,000-6,500</span></div>
-        <div class="budget-total"><span>小计</span><span class="price">~11,000-16,500 NOK</span></div>
-      </div>
-
-      <div class="budget-card">
-        <h4>🏨 住宿（8晚）</h4>
-        <div class="budget-item"><span>奥斯陆机场酒店 ×1</span><span class="price">~1,200</span></div>
-        <div class="budget-item"><span>特罗姆瑟酒店/民宿 ×3</span><span class="price">~4,500-6,000</span></div>
-        <div class="budget-item"><span>罗佛敦渔夫小屋 ×3</span><span class="price">~5,000-7,500</span></div>
-        <div class="budget-item"><span>奥斯陆市中心 ×1</span><span class="price">~1,200-1,800</span></div>
-        <div class="budget-total"><span>小计</span><span class="price">~11,900-16,500 NOK</span></div>
-      </div>
-
-      <div class="budget-card">
-        <h4>🎯 活动体验</h4>
-        <div class="budget-item"><span>极光MiniBus追光团 ×1</span><span class="price">~1,200-1,800</span></div>
-        <div class="budget-item"><span>极光峡湾游轮 ×1</span><span class="price">~1,500-2,000</span></div>
-        <div class="budget-item"><span>狗拉雪橇 ×1</span><span class="price">~1,800-2,200</span></div>
-        <div class="budget-item"><span>观鲸之旅 ×1</span><span class="price">~1,800-2,500</span></div>
-        <div class="budget-item"><span>海鹰巡游 ×1</span><span class="price">~900-1,200</span></div>
-        <div class="budget-item"><span>Fjellheisen缆车</span><span class="price">~350</span></div>
-        <div class="budget-total"><span>小计</span><span class="price">~7,550-10,050 NOK</span></div>
-      </div>
-
-      <div class="budget-card">
-        <h4>🍽️ 餐饮 + 🚗 租车 + 其他</h4>
-        <div class="budget-item"><span>餐饮（9天，含超市自炊）</span><span class="price">~5,000-8,000</span></div>
-        <div class="budget-item"><span>租车（罗佛敦3天+保险）</span><span class="price">~3,500-5,000</span></div>
-        <div class="budget-item"><span>油费 + 停车 + 轮渡</span><span class="price">~1,000-1,500</span></div>
-        <div class="budget-item"><span>机场快线 + 市内交通</span><span class="price">~800-1,200</span></div>
-        <div class="budget-item"><span>eSIM流量卡</span><span class="price">~200-400</span></div>
-        <div class="budget-total"><span>小计</span><span class="price">~10,500-16,100 NOK</span></div>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-top:2rem;padding:1.5rem;background:var(--bg-card);border:1px solid rgba(74,222,128,0.3);border-radius:12px">
-      <span style="font-size:1.2rem;color:var(--text-secondary)">💰 预估总预算（每人）：</span>
-      <span style="font-size:2rem;font-weight:700;color:var(--accent-aurora);margin-left:0.5rem">41,000 - 59,000 NOK</span>
-      <span style="display:block;color:var(--text-secondary);margin-top:0.5rem">约合人民币 27,000 - 39,000 元/人（按1 NOK ≈ 0.66 CNY）</span>
-      <span style="display:block;color:var(--text-secondary);font-size:0.9rem;margin-top:0.3rem">👫 <strong>双人合计：82,000 - 118,000 NOK</strong>（约人民币 54,000 - 78,000 元）</span>
-      <span style="display:block;color:var(--text-secondary);font-size:0.8rem;margin-top:0.3rem">含国际国内机票、住宿、活动、餐饮、租车全包</span>
-    </div>
+    <h2 class="section-title"><span class="icon">💰</span>预算明细与对比</h2>
+    <div id="budget-content"></div>
   </section>
-
   <!-- Tips -->
   <section class="section" id="tips">
     <h2 class="section-title"><span class="icon">💡</span>实用攻略</h2>
@@ -1177,7 +946,7 @@
     <p style="color:var(--text-secondary);margin-bottom:1.5rem;font-size:0.9rem">数据来自 Open-Meteo 免费天气 API、NOAA SWPC 与 GFZ 波茨坦地磁数据。出行日期 (2027.2.4-2.12) 的精准预报将在临近时开放。</p>
 
     <!-- City tabs -->
-    <div class="city-tabs" style="margin-bottom:1.25rem">
+    <div class="city-tabs" id="city-tabs-container" style="margin-bottom:1.25rem">
       <button class="city-tab active" data-city="tromso">特罗姆瑟</button>
       <button class="city-tab" data-city="reine">罗佛敦 · 雷讷</button>
       <button class="city-tab" data-city="oslo">奥斯陆</button>
@@ -1232,186 +1001,471 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""
   onerror="var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';document.head.appendChild(s);"></script>
 <script>
-  // ==================== 动态地图 ====================
+  // ==================== ROUTE DATA ====================
+  const ROUTES = {
+    v1: {
+      id:'v1', tabLabel:'经典极光线', tabSub:'Oslo+Tromsø+Lofoten · 9天',
+      hero:{title:'挪威极光之旅',subtitle:'芬兰J人盛宴 — 双人极光追逐计划',date:'2027年2月4日 - 2月12日 · 9天8晚 · 香港出发'},
+      overview:{travelers:'👫 2人出行',daysDesc:'9天8晚',cityCount:'3城',cityRoute:'奥斯陆 → 特罗姆瑟 → 罗佛敦',auroraNights:'4晚',expCount:'6项',expDesc:'狗拉雪橇 · 观鲸 · 海鹰 · 峡湾 · 极光追光 · 冰酒店'},
+      weatherCities:['tromso','reine','oslo'],
+      days:9,
+      map:{
+        bounds:[[55,5],[72,35]],
+        locations:[
+          {id:'hkg',name:'香港',en:'Hong Kong',lat:22.319,lng:114.169,type:'start',day:1,date:'2/4'},
+          {id:'ist',name:'伊斯坦布尔',en:'Istanbul',lat:41.261,lng:28.742,type:'transit',day:1,date:'2/4'},
+          {id:'osl1',name:'奥斯陆',en:'Oslo',lat:60.197,lng:11.100,type:'transit',day:1,date:'2/4'},
+          {id:'tos',name:'特罗姆瑟',en:'Tromsø',lat:69.649,lng:18.956,type:'core',day:2,date:'2/5-2/8'},
+          {id:'svj',name:'斯沃尔韦尔',en:'Svolvær',lat:68.235,lng:14.565,type:'core',day:5,date:'2/8'},
+          {id:'reine',name:'雷讷',en:'Reine',lat:67.932,lng:13.089,type:'core',day:6,date:'2/9-2/10'},
+          {id:'a_town',name:'Å镇',en:'Å i Lofoten',lat:67.879,lng:12.982,type:'core',day:7,date:'2/10'},
+          {id:'osl2',name:'奥斯陆',en:'Oslo',lat:59.913,lng:10.752,type:'transit',day:8,date:'2/11-2/12'},
+          {id:'ist2',name:'伊斯坦布尔',en:'Istanbul',lat:41.261,lng:28.742,type:'transit',day:9,date:'2/12'},
+          {id:'hkg2',name:'香港',en:'Hong Kong',lat:22.319,lng:114.169,type:'end',day:9,date:'2/12'}
+        ],
+        flightSegments:[[0,1],[1,2],[2,3],[3,4],[6,7],[7,8],[8,9]],
+        driveSegments:[[4,5],[5,6]]
+      },
+      itinerary:[
+        {day:1,date:'2月4日 周四',title:'出发！香港 → 伊斯坦布尔 → 奥斯陆',icon:'✈️',tag:'旅程开始',tagClass:'transport',content:'<p>搭乘土耳其航空从香港出发，经伊斯坦布尔中转，飞抵挪威首都奥斯陆。抵达后入住市中心酒店，调整时差。</p><p><strong>🍽️ 晚餐推荐：</strong>Mathallen Oslo 美食市集，品尝挪威三文鱼和驯鹿肉。</p>',photos:[{url:'https://images.unsplash.com/photo-1569339553-1f43046b6769?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/oslo-winter-city',alt:'奥斯陆冬日城市景观',credit:'Unsplash',caption:'冬日奥斯陆'},{url:'https://images.unsplash.com/photo-1513623954578-b8ce54bb55da?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/turkish-airlines',alt:'航班飞行',credit:'Unsplash',caption:'长途飞行'}]},
+        {day:2,date:'2月5日 周五',title:'奥斯陆半日 → 飞特罗姆瑟',icon:'🏛️',tag:'城市探索',tagClass:'sightseeing',content:'<p>上午游览奥斯陆：<strong>维格兰雕塑公园</strong>（200+座人体雕塑）、<strong>奥斯陆歌剧院</strong>（屋顶漫步，眺望峡湾）。下午飞往北极之门特罗姆瑟（1h50m），入住后参加当晚北极光追光团。</p><p><strong>📸 打卡点：</strong>歌剧院大理石斜坡屋顶是奥斯陆最佳拍照点。</p>',photos:[{url:'https://images.unsplash.com/photo-1586943626573-4cb05689129e?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/vigeland-park-oslo',alt:'维格兰雕塑公园',credit:'Unsplash',caption:'维格兰雕塑公园 · 人体雕塑群'},{url:'https://images.unsplash.com/photo-1569339553-1f43046b6769?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/oslo-opera-house',alt:'奥斯陆歌剧院',credit:'Unsplash',caption:'奥斯陆歌剧院 · 屋顶漫步'}]},
+        {day:3,date:'2月6日 周六',title:'特罗姆瑟 — 狗拉雪橇 & 极光之夜',icon:'🐕',tag:'极地体验',tagClass:'activity',content:'<p>上午前往<strong>特罗姆瑟荒野中心</strong>体验狗拉雪橇（3小时，约NOK 1,990/人），由哈士奇犬队拉着你在雪原飞驰。下午参观<strong>北极大教堂</strong>（独特三角形建筑设计）和<strong>Polaria水族馆</strong>。晚上乘<strong>Fjellheisen缆车</strong>登顶观景台，俯瞰城市夜景和极光。这是特罗姆瑟最经典的极光观测点之一。</p>',photos:[{url:'https://images.unsplash.com/photo-1520769669658-f07657f5a307?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/tromso-northern-lights',alt:'特罗姆瑟北极光',credit:'Unsplash',caption:'特罗姆瑟极光'},{url:'https://images.unsplash.com/photo-1516467508483-a72e68b53b5c?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/dog-sledding-norway',alt:'狗拉雪橇',credit:'Unsplash',caption:'狗拉雪橇体验'}]},
+        {day:4,date:'2月7日 周日',title:'特罗姆瑟 — 观鲸之旅',icon:'🐋',tag:'野生动物',tagClass:'activity',content:'<p>冬季是观鲸黄金季！乘船出海观赏<strong>座头鲸和虎鲸</strong>（行程约5-6小时，NOK 1,490/人）。鲸群在特罗姆瑟峡湾中捕食鲱鱼，场面壮观。下午自由探索市区：<strong>极地博物馆</strong>了解北极探险史，<strong>Ølhallen啤酒屋</strong>品尝当地精酿。</p>',photos:[{url:'https://images.unsplash.com/photo-1568430328012-21ed450453ea?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/whale-watching-norway',alt:'挪威观鲸',credit:'Unsplash',caption:'特罗姆瑟峡湾观鲸'}]},
+        {day:5,date:'2月8日 周一',title:'特罗姆瑟 → 罗佛敦群岛（斯沃尔韦尔）',icon:'🚌',tag:'移动日',tagClass:'transport',content:'<p>早上从特罗姆瑟乘巴士前往罗佛敦群岛首府<strong>斯沃尔韦尔</strong>（约4-5小时，沿途风景壮丽）。抵达后探索小镇：<strong>Svolværgeita山羊岩</strong>、漫步海港、拍摄标志性的晒鱼架。入住传统<strong>Rorbu渔夫木屋</strong>。</p>',photos:[{url:'https://images.unsplash.com/photo-1531171070-af4e3c6e6fa0?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/svolvaer-lofoten',alt:'斯沃尔韦尔',credit:'Unsplash',caption:'斯沃尔韦尔海港'}]},
+        {day:6,date:'2月9日 周二',title:'罗佛敦 — 雷讷 & 海鹰峡湾巡游',icon:'🦅',tag:'峡湾探索',tagClass:'sightseeing',content:'<p>前往罗佛敦最美的渔村<strong>雷讷</strong>（Reine）。在Reinebringen山脚下拍摄红色Rorbu木屋与雪山的经典构图。下午参加<strong>海鹰峡湾巡游</strong>（Trollfjord），近距离观赏白尾海鹰在头顶盘旋，穿梭于狭窄的峡湾之中。</p>',photos:[{url:'https://images.unsplash.com/photo-1531171070-af4e3c6e6fa0?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/reine-lofoten-winter',alt:'雷讷渔村',credit:'Unsplash',caption:'雷讷 · 红色Rorbu与雪山'},{url:'https://images.unsplash.com/photo-1506452819137-5462cf5905a4?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/lofoten-fjord-eagle',alt:'罗佛敦峡湾',credit:'Unsplash',caption:'Trollfjord峡湾巡游'}]},
+        {day:7,date:'2月10日 周三',title:'罗佛敦 — Å镇 & Henningsvær',icon:'🎨',tag:'渔村探索',tagClass:'sightseeing',content:'<p>探索世界最短地名<strong>Å镇</strong>（挪威语意为"小河"），参观鳕鱼博物馆。前往<strong>Henningsvær</strong>— 世界最美的足球场就坐落在这里的小岛上。途经<strong>Nusfjord</strong>，挪威最完整保存的传统渔村。傍晚在Haukland白沙滩拍摄北极圈日落。</p>',photos:[{url:'https://images.unsplash.com/photo-1520699693262-f9916a7f3536?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/henningsvaer-football-field',alt:'Henningsvær足球场',credit:'Unsplash',caption:'Henningsvær · 世界最美足球场'},{url:'https://images.unsplash.com/photo-1516026672322-bdc9fde60a6c?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/lofoten-beach-winter',alt:'罗佛敦海滩',credit:'Unsplash',caption:'Haukland白沙滩'}]},
+        {day:8,date:'2月11日 周四',title:'罗佛敦 → 奥斯陆',icon:'✈️',tag:'返程',tagClass:'transport',content:'<p>上午从Leknes/Svolvær机场飞回奥斯陆。下午自由购物：Karl Johans gate步行街、<strong>Aker Brygge海滨区</strong>。最后一晚享用挪威海鲜大餐。</p>',photos:[{url:'https://images.unsplash.com/photo-1601475575937-73e2694f01e7?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/oslo-aker-brygge',alt:'奥斯陆海滨',credit:'Unsplash',caption:'Aker Brygge海滨'}]},
+        {day:9,date:'2月12日 周五',title:'奥斯陆 → 伊斯坦布尔 → 香港',icon:'🏠',tag:'回家',tagClass:'transport',content:'<p>搭乘土耳其航空经伊斯坦布尔返回香港。满载极光回忆与挪威冬日美景回家！</p>',photos:[{url:'https://images.unsplash.com/photo-1436491865332-7a61a109bb05?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/airplane-window',alt:'飞机窗景',credit:'Unsplash',caption:'归途'}]}
+      ],
+      transport:{international:[{route:'香港→伊斯坦布尔→奥斯陆',mode:'✈️ 土耳其航空',duration:'~16h（含中转）',note:'伊斯坦布尔中转',cost:'HK$7,000-10,000/人'},{route:'奥斯陆→伊斯坦布尔→香港',mode:'✈️ 土耳其航空',duration:'~16h（含中转）',note:'伊斯坦布尔中转',cost:'含在往返票中'}],domestic:[{route:'奥斯陆→特罗姆瑟',mode:'✈️ SAS/Norwegian',duration:'1h50m',note:'多班次',cost:'NOK 550-1,775'},{route:'特罗姆瑟→斯沃尔韦尔',mode:'🚌 巴士/✈️',duration:'4-5h/1h',note:'巴士NOK 200-280',cost:'NOK 200-2,100'},{route:'Leknes→奥斯陆',mode:'✈️ Widerøe',duration:'2.5h（经Bodø）',note:'每日多班',cost:'NOK 1,500-3,000'}],cruiseComparison:[{aspect:'时间',fly:'~1小时',cruise:'~16小时（过夜）'},{aspect:'费用（人）',fly:'NOK 480-2,100',cruise:'NOK 2,777-8,382'},{aspect:'体验',fly:'快速直达，更多时间在Lofoten',cruise:'沿途峡湾风光，一次航行体验'},{aspect:'班次',fly:'每日多班',cruise:'每日一班（晚发晨达）'},{aspect:'推荐指数',fly:'⭐⭐⭐⭐⭐（紧凑行程首选）',cruise:'⭐⭐⭐（时间充裕可选）'}],conclusion:'对于本次9天8晚的紧凑行程，推荐飞行方案，将节省的白天时间留给罗佛敦的探索。'},
+      budget:{sections:[{label:'✈️ 国际机票（香港出发·2人）',low:'HK$14,000',high:'HK$20,000',note:'土耳其航空往返，含税'},{label:'🚌 挪威国内交通（2人）',low:'NOK 2,500',high:'NOK 8,000',note:'含机票+巴士'},{label:'🏨 住宿（8晚·双人间）',low:'NOK 12,000',high:'NOK 22,000',note:'含2晚Rorbu木屋'},{label:'🎯 活动体验（2人·4项）',low:'NOK 12,000',high:'NOK 20,000',note:'狗拉雪橇+观鲸+海鹰巡游+极光团'},{label:'🍽️ 餐饮（2人·9天）',low:'NOK 8,000',high:'NOK 14,000',note:'超市自炊可省50%+'},{label:'📱 其他（签证·保险·流量）',low:'HK$3,000',high:'HK$5,000',note:'申根签证+旅行保险+eSIM'}],totalNote:'💑 双人总预算参考范围'}
+    },
+    v2: {
+      id:'v2', tabLabel:'峡湾极光线', tabSub:'+Bergen · 12-14天',
+      hero:{title:'挪威峡湾极光之旅',subtitle:'经典路线升级 — 加入卑尔根峡湾门户',date:'2027年2月4日 - 2月17日 · 13天12晚 · 香港出发'},
+      overview:{travelers:'👫 2人出行',daysDesc:'13天12晚',cityCount:'4城',cityRoute:'奥斯陆 → 卑尔根 → 特罗姆瑟 → 罗佛敦',auroraNights:'5晚',expCount:'8项',expClass:'狗拉雪橇 · 观鲸 · 峡湾巡游 · 极光 · 弗洛姆铁路'},
+      weatherCities:['tromso','reine','bergen','oslo'],
+      days:13,
+      map:{
+        bounds:[[55,0],[72,35]],
+        locations:[
+          {id:'hkg',name:'香港',en:'Hong Kong',lat:22.319,lng:114.169,type:'start',day:1,date:'2/4'},
+          {id:'ist',name:'伊斯坦布尔',en:'Istanbul',lat:41.261,lng:28.742,type:'transit',day:1,date:'2/4'},
+          {id:'osl1',name:'奥斯陆',en:'Oslo',lat:60.197,lng:11.100,type:'transit',day:1,date:'2/4-2/5'},
+          {id:'bgo',name:'卑尔根',en:'Bergen',lat:60.391,lng:5.322,type:'core',day:3,date:'2/5-2/7'},
+          {id:'tos',name:'特罗姆瑟',en:'Tromsø',lat:69.649,lng:18.956,type:'core',day:6,date:'2/8-2/11'},
+          {id:'svj',name:'斯沃尔韦尔',en:'Svolvær',lat:68.235,lng:14.565,type:'core',day:10,date:'2/12'},
+          {id:'reine',name:'雷讷',en:'Reine',lat:67.932,lng:13.089,type:'core',day:11,date:'2/13-2/14'},
+          {id:'osl2',name:'奥斯陆',en:'Oslo',lat:59.913,lng:10.752,type:'transit',day:12,date:'2/15-2/17'},
+          {id:'ist2',name:'伊斯坦布尔',en:'Istanbul',lat:41.261,lng:28.742,type:'transit',day:13,date:'2/17'},
+          {id:'hkg2',name:'香港',en:'Hong Kong',lat:22.319,lng:114.169,type:'end',day:13,date:'2/17'}
+        ],
+        flightSegments:[[0,1],[1,2],[3,4],[5,6],[7,8],[8,9]],
+        driveSegments:[[5,6]]
+      },
+      itinerary:[
+        {day:1,date:'2月4日 周四',title:'出发！香港 → 伊斯坦布尔 → 奥斯陆',icon:'✈️',tag:'旅程开始',tagClass:'transport',content:'<p>搭乘土耳其航空从香港出发，经伊斯坦布尔中转，傍晚抵达奥斯陆。入住酒店，调整时差。</p>',photos:[{url:'https://images.unsplash.com/photo-1569339553-1f43046b6769?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/oslo-winter-city',alt:'奥斯陆',credit:'Unsplash',caption:'冬日奥斯陆'}]},
+        {day:2,date:'2月5日 周五',title:'奥斯陆一日游',icon:'🏛️',tag:'城市探索',tagClass:'sightseeing',content:'<p>全天探索奥斯陆：<strong>维格兰雕塑公园</strong>、奥斯陆歌剧院屋顶漫步、<strong>阿克斯胡斯城堡</strong>（13世纪要塞，俯瞰峡湾）。下午逛Aker Brygge海滨和市政厅。晚上尝试挪威特色餐厅。</p>',photos:[{url:'https://images.unsplash.com/photo-1586943626573-4cb05689129e?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/vigeland-park-oslo',alt:'维格兰雕塑公园',credit:'Unsplash',caption:'维格兰雕塑公园'},{url:'https://images.unsplash.com/photo-1569339553-1f43046b6769?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/oslo-opera-house',alt:'奥斯陆歌剧院',credit:'Unsplash',caption:'奥斯陆歌剧院'}]},
+        {day:3,date:'2月6日 周六',title:'奥斯陆 → 卑尔根（挪威缩影）',icon:'🚂',tag:'铁路之旅',tagClass:'transport',content:'<p>体验世界最美火车之旅 — <strong>挪威缩影（Norway in a Nutshell）</strong>：奥斯陆火车→Myrdal→<strong>弗洛姆铁路</strong>（世界最陡铁路之一）→弗洛姆→<strong>艾于兰峡湾</strong>游船→Gudvangen→巴士→沃斯→火车→卑尔根。全天约12小时，每一帧都是明信片。</p>',photos:[{url:'https://images.unsplash.com/photo-1441132584825-3e64b8c2906e?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/flam-railway-norway',alt:'弗洛姆铁路',credit:'Unsplash',caption:'弗洛姆铁路 · 世界最美火车线'},{url:'https://images.unsplash.com/photo-1504280311923-5a6d82f7bd35?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/aurland-fjord',alt:'艾于兰峡湾',credit:'Unsplash',caption:'艾于兰峡湾游船'}]},
+        {day:4,date:'2月7日 周日',title:'卑尔根 — 布吕根 & 弗洛伊恩山',icon:'🏘️',tag:'世界遗产',tagClass:'sightseeing',content:'<p>上午探访<strong>布吕根码头</strong>（UNESCO世界遗产）— 一排排色彩斑斓的汉萨同盟木屋，是卑尔根最经典的画面。逛<strong>鱼市场</strong>品尝新鲜帝王蟹和三文鱼。下午乘<strong>Fløibanen缆车</strong>登顶弗洛伊恩山（320m），俯瞰卑尔根全景。</p>',photos:[{url:'https://images.unsplash.com/photo-1441132584825-3e64b8c2906e?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/bryggen-bergen',alt:'卑尔根布吕根',credit:'Unsplash',caption:'布吕根码头 · UNESCO世界遗产'},{url:'https://images.unsplash.com/photo-1504280311923-5a6d82f7bd35?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/bergen-floibanen',alt:'弗洛伊恩山',credit:'Unsplash',caption:'弗洛伊恩山俯瞰卑尔根'}]},
+        {day:5,date:'2月8日 周一',title:'卑尔根 — 松恩峡湾深度游',icon:'🚢',tag:'峡湾之冠',tagClass:'activity',content:'<p>参加<strong>松恩峡湾（Sognefjord）全天巡游</strong>。松恩峡湾是挪威最长最深的峡湾（204km长，1308m深），支湾<strong>奈勒伊峡湾（Nærøyfjord）</strong>是UNESCO世界遗产，两岸绝壁耸立，瀑布飞流直下。也可选择<strong>哈当厄尔峡湾</strong>一日游。</p>',photos:[{url:'https://images.unsplash.com/photo-1441132584825-3e64b8c2906e?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/sognefjord-norway',alt:'松恩峡湾',credit:'Unsplash',caption:'松恩峡湾巡游'}]},
+        {day:6,date:'2月9日 周二',title:'卑尔根 → 特罗姆瑟',icon:'✈️',tag:'飞向北极',tagClass:'transport',content:'<p>上午最后逛逛卑尔根：<strong>Troldhaugen</strong>（作曲家格里格故居，湖边别墅+音乐厅）。下午飞往特罗姆瑟（约2小时），抵达后参加当晚极光追光团。</p>',photos:[{url:'https://images.unsplash.com/photo-1520769669658-f07657f5a307?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/tromso-northern-lights',alt:'特罗姆瑟极光',credit:'Unsplash',caption:'特罗姆瑟极光之夜'}]},
+        {day:7,date:'2月10日 周三',title:'特罗姆瑟 — 狗拉雪橇',icon:'🐕',tag:'极地体验',tagClass:'activity',content:'<p>上午<strong>狗拉雪橇</strong>（3小时）穿越特罗姆瑟雪原。下午参观<strong>北极大教堂</strong>和Polaria水族馆。晚上Fjellheisen缆车观景台守候极光。</p>',photos:[{url:'https://images.unsplash.com/photo-1516467508483-a72e68b53b5c?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/dog-sledding',alt:'狗拉雪橇',credit:'Unsplash',caption:'狗拉雪橇'}]},
+        {day:8,date:'2月11日 周四',title:'特罗姆瑟 — 观鲸之旅',icon:'🐋',tag:'野生动物',tagClass:'activity',content:'<p>冬季观鲸黄金季！出海观赏座头鲸和虎鲸（5-6小时）。下午极地博物馆了解北极探险史。</p>',photos:[{url:'https://images.unsplash.com/photo-1568430328012-21ed450453ea?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/whale-watching',alt:'观鲸',credit:'Unsplash',caption:'特罗姆瑟观鲸'}]},
+        {day:9,date:'2月12日 周五',title:'特罗姆瑟自由日',icon:'🎿',tag:'自由探索',tagClass:'sightseeing',content:'<p>自由日：可选<strong>雪地摩托</strong>、<strong>驯鹿雪橇</strong>（萨米文化体验）、<strong>冰酒店</strong>（Tromsø Ice Domes）或市区购物。晚上再次追极光 — 特罗姆瑟每3晚约1晚可见极光，多停留一晚增加概率。</p>',photos:[{url:'https://images.unsplash.com/photo-1520769669658-f07657f5a307?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/sami-reindeer',alt:'萨米驯鹿',credit:'Unsplash',caption:'萨米文化 · 驯鹿雪橇'}]},
+        {day:10,date:'2月13日 周六',title:'特罗姆瑟 → 罗佛敦',icon:'🚌',tag:'移动日',tagClass:'transport',content:'<p>巴士或飞机前往罗佛敦斯沃尔韦尔。入住传统Rorbu渔夫木屋。</p>',photos:[{url:'https://images.unsplash.com/photo-1531171070-af4e3c6e6fa0?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/svolvaer',alt:'斯沃尔韦尔',credit:'Unsplash',caption:'斯沃尔韦尔'}]},
+        {day:11,date:'2月14日 周日',title:'罗佛敦 — 雷讷 & Henningsvær',icon:'📸',tag:'最美渔村',tagClass:'sightseeing',content:'<p>情人节在罗佛敦！拍摄雷讷经典红房子+雪山+极光构图。探访Henningsvær世界最美足球场、Nusfjord传统渔村。</p>',photos:[{url:'https://images.unsplash.com/photo-1531171070-af4e3c6e6fa0?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/reine-lofoten',alt:'雷讷',credit:'Unsplash',caption:'雷讷 · 情人节极光'}]},
+        {day:12,date:'2月15日 周一',title:'罗佛敦 → 奥斯陆',icon:'✈️',tag:'返程',tagClass:'transport',content:'<p>飞回奥斯陆。下午Karl Johans gate购物，Aker Brygge享用告别晚餐。</p>',photos:[{url:'https://images.unsplash.com/photo-1601475575937-73e2694f01e7?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/oslo-shopping',alt:'奥斯陆购物',credit:'Unsplash',caption:'奥斯陆告别晚餐'}]},
+        {day:13,date:'2月17日 周三',title:'奥斯陆 → 伊斯坦布尔 → 香港',icon:'🏠',tag:'回家',tagClass:'transport',content:'<p>满载极光与峡湾回忆返回香港！</p>',photos:[{url:'https://images.unsplash.com/photo-1436491865332-7a61a109bb05?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/airplane',alt:'归途',credit:'Unsplash',caption:'回家'}]}
+      ],
+      transport:{international:[{route:'香港→伊斯坦布尔→奥斯陆',mode:'✈️ 土耳其航空',duration:'~16h',note:'伊斯坦布尔中转',cost:'HK$7,000-10,000/人'},{route:'奥斯陆→伊斯坦布尔→香港',mode:'✈️ 土耳其航空',duration:'~16h',note:'伊斯坦布尔中转',cost:'含在往返票中'}],domestic:[{route:'奥斯陆→卑尔根',mode:'🚂 挪威缩影',duration:'~12h（含峡湾游船）',note:'世界最美火车线',cost:'NOK 1,400-2,000'},{route:'卑尔根→特罗姆瑟',mode:'✈️ SAS/Norwegian',duration:'1h50m',note:'每日多班',cost:'NOK 850-2,200'},{route:'特罗姆瑟→斯沃尔韦尔',mode:'🚌 巴士/✈️',duration:'4-5h/1h',note:'巴士更经济',cost:'NOK 200-2,100'},{route:'Leknes→奥斯陆',mode:'✈️ Widerøe',duration:'2.5h',note:'经Bodø',cost:'NOK 1,500-3,000'}],conclusion:'V2路线增加卑尔根和挪威缩影，是世界最美火车+峡湾的组合。推荐给时间充裕（12天+）且想体验峡湾的旅行者。交通费用增加约NOK 2,000-4,500/人。'},
+      budget:{sections:[{label:'✈️ 国际机票（香港出发·2人）',low:'HK$14,000',high:'HK$20,000',note:'土耳其航空往返'},{label:'🚌 挪威国内交通（2人）',low:'NOK 6,000',high:'NOK 14,000',note:'含挪威缩影+机票'},{label:'🏨 住宿（12晚·双人间）',low:'NOK 18,000',high:'NOK 32,000',note:'含3晚Rorbu木屋+卑尔根'},{label:'🎯 活动体验（2人·8项）',low:'NOK 18,000',high:'NOK 30,000',note:'+峡湾巡游+挪威缩影'},{label:'🍽️ 餐饮（2人·13天）',low:'NOK 11,000',high:'NOK 20,000',note:'卑尔根鱼市场略贵'},{label:'📱 其他（签证·保险·流量）',low:'HK$3,000',high:'HK$5,000',note:'申根签证+保险+eSIM'}],totalNote:'💑 双人总预算参考范围 · 比V1增加约30-40%'}
+    },
+    v3a: {
+      id:'v3a', tabLabel:'峡湾深度线', tabSub:'Oslo→Bergen→Flåm→Geiranger→Ålesund · 14-16天',
+      hero:{title:'挪威峡湾深度之旅',subtitle:'穿越挪威四大峡湾 — 世界遗产巡礼',date:'推荐5-9月 · 14-16天 · 奥斯陆出发（非冬季路线）'},
+      overview:{travelers:'👫 2人出行',daysDesc:'14-16天',cityCount:'5城+4峡湾',cityRoute:'奥斯陆 → 卑尔根 → 弗洛姆 → 盖朗厄尔 → 奥勒松',auroraNights:'夏季无（白夜）',expClass:'挪威缩影 · 四大峡湾 · 大西洋之路 · 布道石'},
+      weatherCities:['oslo','bergen'],
+      days:14,
+      map:{
+        bounds:[[58,3],[63,14]],
+        locations:[
+          {id:'osl',name:'奥斯陆',en:'Oslo',lat:59.913,lng:10.752,type:'start',day:1,date:'D1-2'},
+          {id:'bgo',name:'卑尔根',en:'Bergen',lat:60.391,lng:5.322,type:'core',day:3,date:'D3-5'},
+          {id:'flam',name:'弗洛姆',en:'Flåm',lat:60.863,lng:7.114,type:'core',day:6,date:'D6-7'},
+          {id:'geiranger',name:'盖朗厄尔峡湾',en:'Geirangerfjord',lat:62.101,lng:7.205,type:'core',day:8,date:'D8-10'},
+          {id:'alesund',name:'奥勒松',en:'Ålesund',lat:62.472,lng:6.155,type:'core',day:11,date:'D11-13'},
+          {id:'osl2',name:'奥斯陆',en:'Oslo',lat:59.913,lng:10.752,type:'end',day:14,date:'D14'}
+        ],
+        flightSegments:[],
+        driveSegments:[[0,1],[1,2],[2,3],[3,4],[4,5]]
+      },
+      itinerary:[
+        {day:1,date:'第1-2天',title:'奥斯陆城市探索',icon:'🏛️',tag:'首都',tagClass:'sightseeing',content:'<p><strong>维格兰雕塑公园</strong>（200+人体雕塑）、<strong>奥斯陆歌剧院</strong>屋顶漫步、<strong>维京船博物馆</strong>、<strong>阿克斯胡斯城堡</strong>。建议购买Oslo Pass（24h NOK 445）覆盖大部分博物馆门票。</p>',photos:[{url:'https://images.unsplash.com/photo-1586943626573-4cb05689129e?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/vigeland-park',alt:'维格兰雕塑公园',credit:'Unsplash',caption:'维格兰雕塑公园'},{url:'https://images.unsplash.com/photo-1569339553-1f43046b6769?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/oslo-opera-house',alt:'奥斯陆歌剧院',credit:'Unsplash',caption:'奥斯陆歌剧院'}]},
+        {day:2,date:'第3-4天',title:'挪威缩影 → 卑尔根',icon:'🚂',tag:'铁路之旅',tagClass:'transport',content:'<p>体验完整版<strong>挪威缩影</strong>：奥斯陆→Myrdal→<strong>弗洛姆铁路</strong>（20公里/865米落差）→艾于兰峡湾游船→卑尔根。这是挪威最经典的旅行路线，浓缩了峡湾精华。</p>',photos:[{url:'https://images.unsplash.com/photo-1441132584825-3e64b8c2906e?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/flam-railway',alt:'弗洛姆铁路',credit:'Unsplash',caption:'弗洛姆铁路'}]},
+        {day:3,date:'第5-6天',title:'卑尔根 — 布吕根 & 峡湾',icon:'🏘️',tag:'世界遗产',tagClass:'sightseeing',content:'<p><strong>布吕根码头</strong>（UNESCO遗产）— 彩色汉萨木屋群是挪威最具辨识度的画面。<strong>Fløibanen缆车</strong>登顶弗洛伊恩山。<strong>鱼市场</strong>品尝帝王蟹和三文鱼。可选<strong>松恩峡湾</strong>或<strong>哈当厄尔峡湾</strong>一日游。</p>',photos:[{url:'https://images.unsplash.com/photo-1441132584825-3e64b8c2906e?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/bryggen-bergen',alt:'布吕根码头',credit:'Unsplash',caption:'布吕根码头'}]},
+        {day:4,date:'第7-8天',title:'弗洛姆 → 盖朗厄尔峡湾',icon:'⛴️',tag:'峡湾之冠',tagClass:'activity',content:'<p>从弗洛姆驱车/渡轮前往<strong>盖朗厄尔峡湾</strong>（UNESCO世界遗产）。沿途经<strong>Stegastein观景台</strong>（悬崖玻璃平台，高悬650米）。盖朗厄尔峡湾以<strong>七姐妹瀑布</strong>、<strong>求婚者瀑布</strong>和<strong>老鹰之路</strong>（11个发夹弯）闻名。</p>',photos:[{url:'https://images.unsplash.com/photo-1493967097-9def03cf18b4?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/geirangerfjord',alt:'盖朗厄尔峡湾',credit:'Unsplash',caption:'盖朗厄尔峡湾 · 七姐妹瀑布'},{url:'https://images.unsplash.com/photo-1493967097-9def03cf18b4?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/trollstigen',alt:'老鹰之路',credit:'Unsplash',caption:'老鹰之路观景'}]},
+        {day:5,date:'第9-10天',title:'盖朗厄尔 — 精灵之路 → 奥勒松',icon:'🏔️',tag:'山路传奇',tagClass:'activity',content:'<p>驱车经<strong>精灵之路（Trollstigen）</strong>— 11个急弯盘旋于瀑布群之间，是挪威最惊险的公路之一（仅夏季开放，通常5月底-10月）。抵达新艺术风格小城<strong>奥勒松</strong>，登418级台阶至<strong>Aksla观景台</strong>俯瞰全城与群岛。</p>',photos:[{url:'https://images.unsplash.com/photo-1493967097-9def03cf18b4?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/alesund-norway',alt:'奥勒松',credit:'Unsplash',caption:'奥勒松 · 新艺术之城'}]},
+        {day:6,date:'第11-12天',title:'奥勒松 → 大西洋之路',icon:'🌊',tag:'海上公路',tagClass:'activity',content:'<p>探访<strong>大西洋之路（Atlanterhavsveien）</strong>— 被誉为"世界最美公路"，8座桥梁串联起散落在大西洋中的小岛。在风暴天气，海浪拍打桥面的场面极为震撼。返回奥勒松。</p>',photos:[{url:'https://images.unsplash.com/photo-1493967097-9def03cf18b4?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/atlantic-road-norway',alt:'大西洋之路',credit:'Unsplash',caption:'大西洋之路'}]},
+        {day:7,date:'第13-14天',title:'奥勒松 → 奥斯陆 → 返程',icon:'✈️',tag:'返程',tagClass:'transport',content:'<p>从奥勒松飞回奥斯陆（约1h），在奥斯陆最后购物和用餐，然后乘机返回。或从奥勒松直接飞回香港（需中转）。</p>',photos:[{url:'https://images.unsplash.com/photo-1601475575937-73e2694f01e7?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/oslo-aker-brygge',alt:'奥斯陆',credit:'Unsplash',caption:'奥斯陆告别'}]}
+      ],
+      transport:{international:[{route:'香港→奥斯陆往返',mode:'✈️ 中转',duration:'~16h',note:'伊斯坦布尔/迪拜/多哈中转',cost:'HK$7,000-11,000/人'}],domestic:[{route:'奥斯陆→卑尔根',mode:'🚂 挪威缩影',duration:'~12h',note:'世界最美火车线',cost:'NOK 1,400-2,000'},{route:'弗洛姆/卑尔根→盖朗厄尔',mode:'🚗 自驾/渡轮',duration:'6-8h',note:'推荐自驾，灵活停靠',cost:'租车NOK 800-1,500/天'},{route:'奥勒松→奥斯陆',mode:'✈️ SAS/Norwegian',duration:'55m',note:'每日多班',cost:'NOK 600-1,500'}],conclusion:'这条路线主打峡湾风光，适合夏季（5-9月）。必须有自驾能力或参加旅行团。冬季不可行（精灵之路/大西洋之路冬季关闭）。'},
+      budget:{sections:[{label:'✈️ 国际机票（香港出发·2人）',low:'HK$14,000',high:'HK$22,000',note:'夏季旺季价格'},{label:'🚗 国内交通（2人·含租车14天）',low:'NOK 18,000',high:'NOK 35,000',note:'租车+油费+渡轮+挪威缩影'},{label:'🏨 住宿（14晚·双人间）',low:'NOK 20,000',high:'NOK 38,000',note:'夏季住宿价格较高'},{label:'🎯 活动体验（2人）',low:'NOK 10,000',high:'NOK 20,000',note:'峡湾游船+观景台+博物馆'},{label:'🍽️ 餐饮（2人·15天）',low:'NOK 13,000',high:'NOK 24,000',note:'推荐超市采购野餐'},{label:'📱 其他（签证·保险·流量）',low:'HK$3,000',high:'HK$5,000',note:'申根签证+保险+eSIM'}],totalNote:'💑 双人总预算参考范围 · 夏季峡湾深度游'}
+    },
+    v3b: {
+      id:'v3b', tabLabel:'极地探险线', tabSub:'Tromsø+Svalbard · 10-12天',
+      hero:{title:'北极探险之旅',subtitle:'世界最北端 — 从北极之门到极地荒野',date:'推荐2-3月或10-11月 · 10-12天 · 特罗姆瑟出发'},
+      overview:{travelers:'👫 2人出行（探险型）',daysDesc:'10-12天',cityCount:'2城+极地',cityRoute:'特罗姆瑟 → 朗伊尔城（斯瓦尔巴）',auroraNights:'每夜可能（极夜期）',expClass:'极光 · 冰川徒步 · 冰洞 · 狗拉雪橇 · 北极熊观测'},
+      weatherCities:['tromso'],
+      days:10,
+      map:{
+        bounds:[[68,10],[80,30]],
+        locations:[
+          {id:'tos',name:'特罗姆瑟',en:'Tromsø',lat:69.649,lng:18.956,type:'start',day:1,date:'D1-4'},
+          {id:'lyr',name:'朗伊尔城',en:'Longyearbyen',lat:78.223,lng:15.647,type:'core',day:5,date:'D5-10'},
+          {id:'tos2',name:'特罗姆瑟',en:'Tromsø',lat:69.649,lng:18.956,type:'end',day:11,date:'D11-12'}
+        ],
+        flightSegments:[[0,1],[1,2]],
+        driveSegments:[]
+      },
+      itinerary:[
+        {day:1,date:'第1-2天',title:'抵达特罗姆瑟 — 极光初夜',icon:'🌌',tag:'极光',tagClass:'activity',content:'<p>飞抵特罗姆瑟（经奥斯陆中转）。当晚即参加<strong>极光追光团</strong>（约NOK 1,200-2,000/人）。特罗姆瑟位于极光带正下方，KP≥3即有极高概率看到。</p>',photos:[{url:'https://images.unsplash.com/photo-1520769669658-f07657f5a307?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/tromso-northern-lights',alt:'特罗姆瑟极光',credit:'Unsplash',caption:'特罗姆瑟极光'}]},
+        {day:2,date:'第3-4天',title:'特罗姆瑟 — 极地活动',icon:'🐕',tag:'极地体验',tagClass:'activity',content:'<p><strong>狗拉雪橇</strong>（3h，NOK 1,990/人）、<strong>观鲸</strong>（冬季，5-6h，NOK 1,490/人）、<strong>雪地摩托</strong>（3-4h，NOK 1,800/人）、<strong>萨米驯鹿雪橇</strong>（文化体验）。晚上Fjellheisen缆车观景台守候极光。</p>',photos:[{url:'https://images.unsplash.com/photo-1516467508483-a72e68b53b5c?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/dog-sledding-tromso',alt:'狗拉雪橇',credit:'Unsplash',caption:'狗拉雪橇'},{url:'https://images.unsplash.com/photo-1568430328012-21ed450453ea?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/tromso-whale',alt:'特罗姆瑟观鲸',credit:'Unsplash',caption:'观鲸'}]},
+        {day:3,date:'第5天',title:'特罗姆瑟 → 朗伊尔城（斯瓦尔巴）',icon:'✈️',tag:'飞向78°N',tagClass:'transport',content:'<p>搭乘SAS/Norwegian航班飞往世界最北端的定居点<strong>朗伊尔城</strong>（1h40m，NOK 2,500-5,000往返）。抵达78°13\'N — 这里距离北极仅1,300公里。入住后参加安全简报（因北极熊威胁，离开定居点必须携带步枪或由持枪向导陪同）。</p>',photos:[{url:'https://images.unsplash.com/photo-1504630084-7d8f5a1c1b4b?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/longyearbyen-svalbard',alt:'朗伊尔城',credit:'Unsplash',caption:'朗伊尔城 · 世界最北端定居点'}]},
+        {day:4,date:'第6-7天',title:'斯瓦尔巴 — 冰川徒步 & 冰洞探险',icon:'🧊',tag:'冰洞',tagClass:'activity',content:'<p><strong>冰川徒步</strong>（NOK 1,400-2,000）：跟随向导在蓝色冰川上行走。<strong>冰洞探险</strong>（NOK 1,400-6,500）：进入冰川内部，探索蓝宝石般的冰洞。这是斯瓦尔巴最具标志性的体验之一。冰洞仅在冬季稳定（11月-4月）。高级选项包含<strong>雪地摩托</strong>或<strong>雪猫车</strong>进入冰川深处。</p>',photos:[{url:'https://images.unsplash.com/photo-1504630084-7d8f5a1c1b4b?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/svalbard-ice-cave',alt:'斯瓦尔巴冰洞',credit:'Unsplash',caption:'斯瓦尔巴冰洞探险'}]},
+        {day:5,date:'第8-9天',title:'斯瓦尔巴 — 北极熊追踪 & 狗拉雪橇',icon:'🐻‍❄️',tag:'北极熊',tagClass:'activity',content:'<p>参加<strong>雪地摩托北极熊追踪</strong>（全天，NOK 5,000-8,000）：在经验丰富的向导带领下，深入斯瓦尔巴荒野寻找北极霸主。斯瓦尔巴有约3,000只北极熊（比人口2,500还多！）。也可选择<strong>狗拉雪橇</strong>（北极犬，非哈士奇）穿越冰原。晚上在极夜/极光下体验世界最北的餐厅。</p>',photos:[{url:'https://images.unsplash.com/photo-1504630084-7d8f5a1c1b4b?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/polar-bear-svalbard',alt:'斯瓦尔巴北极熊',credit:'Unsplash',caption:'斯瓦尔巴 · 北极熊王国'}]},
+        {day:6,date:'第10-11天',title:'朗伊尔城 → 特罗姆瑟 → 返程',icon:'🏠',tag:'返程',tagClass:'transport',content:'<p>从朗伊尔城飞回特罗姆瑟，可最后追一次极光。然后经奥斯陆飞回香港。斯瓦尔巴机场免税店是最后的购物机会— 这里的酒类比挪威本土便宜很多（免税岛）。</p>',photos:[{url:'https://images.unsplash.com/photo-1436491865332-7a61a109bb05?w=800&q=80',searchUrl:'https://unsplash.com/s/photos/airplane-arctic',alt:'北极航班',credit:'Unsplash',caption:'离开北极'}]}
+      ],
+      transport:{international:[{route:'香港→奥斯陆→特罗姆瑟',mode:'✈️ 中转',duration:'~18h',note:'至少2次中转',cost:'HK$8,000-13,000/人'},{route:'特罗姆瑟→奥斯陆→香港',mode:'✈️ 中转',duration:'~18h',note:'回程',cost:'含在往返票中'}],domestic:[{route:'特罗姆瑟↔朗伊尔城',mode:'✈️ SAS/Norwegian',duration:'1h40m',note:'每日1-2班，旺季抢手',cost:'NOK 2,500-5,000往返'}],conclusion:'斯瓦尔巴是全球最独特的旅行目的地之一。北极熊、冰川、冰洞、极夜/极昼——每一项都是人生体验。但预算需求极高（斯瓦尔巴住宿和活动费用远超挪威本土），且需要较好的身体素质。适合追求极致体验的探险型旅行者。'},
+      budget:{sections:[{label:'✈️ 国际机票（香港出发·2人）',low:'HK$16,000',high:'HK$26,000',note:'多次中转+斯瓦尔巴段'},{label:'✈️ 特罗姆瑟↔斯瓦尔巴（2人）',low:'NOK 5,000',high:'NOK 10,000',note:'往返机票'},{label:'🏨 住宿（10晚·2人）',low:'NOK 22,000',high:'NOK 45,000',note:'斯瓦尔巴住宿极贵'},{label:'🎯 极地活动（2人·6项）',low:'NOK 25,000',high:'NOK 50,000',note:'冰洞+雪地摩托+北极熊追踪最贵'},{label:'🍽️ 餐饮（2人·11天）',low:'NOK 12,000',high:'NOK 25,000',note:'斯瓦尔巴餐饮价格极高'},{label:'📱 其他（签证·保险·流量）',low:'HK$4,000',high:'HK$7,000',note:'+高额救援保险（必需！）'}],totalNote:'💑 双人总预算参考范围 · 最贵路线，5-8万+NOK'}
+    }
+  };
+
+  // ==================== 路线状态管理 ====================
+  let currentRoute = 'v1';
+  let currentSubRoute = 'v3a';
+  function getActiveRouteId() { return currentRoute === 'v3' ? currentSubRoute : currentRoute; }
+  function getActiveRoute() { return ROUTES[getActiveRouteId()]; }
+
+  // ==================== 大圆弧插值 ====================
+  function greatCirclePoints(lat1, lon1, lat2, lon2, n) {
+    const toRad = Math.PI / 180, toDeg = 180 / Math.PI;
+    const φ1 = lat1 * toRad, λ1 = lon1 * toRad;
+    const φ2 = lat2 * toRad, λ2 = lon2 * toRad;
+    const pts = [];
+    for (let k = 0; k <= n; k++) {
+      const f = k / n;
+      const a = Math.sin((1 - f) * Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1)));
+      const b = Math.sin(f * Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1)));
+      const x = a * Math.cos(φ1) * Math.cos(λ1) + b * Math.cos(φ2) * Math.cos(λ2);
+      const y = a * Math.cos(φ1) * Math.sin(λ1) + b * Math.cos(φ2) * Math.sin(λ2);
+      const z = a * Math.sin(φ1) + b * Math.sin(φ2);
+      pts.push([Math.atan2(z, Math.sqrt(x * x + y * y)) * toDeg, Math.atan2(y, x) * toDeg]);
+    }
+    return pts;
+  }
+
+  // ==================== 地图 ====================
+  let mapInstance = null;
+  let mapLayerGroup = null;
+  const ARCTIC_CIRCLE = 66.563;
+
+  function initMap(route) {
+    if (typeof L === 'undefined') { console.warn('Leaflet not loaded'); return; }
+    try {
+      const mapData = route.map;
+
+      if (!mapInstance) {
+        mapInstance = L.map('trip-map', {
+          center: [60, 15], zoom: 4,
+          scrollWheelZoom: true, zoomControl: true, attributionControl: true,
+        });
+        try {
+          L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+            subdomains: 'abcd', maxZoom: 19,
+          }).addTo(mapInstance);
+        } catch(e) {}
+        setTimeout(() => {
+          const tiles = document.querySelectorAll('#trip-map .leaflet-tile');
+          if (tiles.length === 0 || tiles[0].naturalWidth === 0) {
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+              maxZoom: 19,
+            }).addTo(mapInstance);
+            const el = document.getElementById('trip-map');
+            if (el) el.style.filter = 'invert(0.9) hue-rotate(180deg) brightness(0.6)';
+          }
+        }, 5000);
+
+        L.polyline([[-180, ARCTIC_CIRCLE], [180, ARCTIC_CIRCLE]], {
+          color: 'rgba(125,211,252,0.3)', weight: 1.5, dashArray: '6, 12', interactive: false,
+        }).addTo(mapInstance);
+        L.marker([ARCTIC_CIRCLE, -170], {
+          icon: L.divIcon({
+            className: '',
+            html: '<div style="background:rgba(125,211,252,0.15);color:rgba(125,211,252,0.7);padding:2px 8px;border-radius:99px;font-size:10px;white-space:nowrap;border:1px solid rgba(125,211,252,0.2)">Arctic Circle 66.5°N</div>',
+            iconSize: [0,0], iconAnchor: [0,0],
+          })
+        }).addTo(mapInstance);
+
+        mapLayerGroup = L.layerGroup().addTo(mapInstance);
+      }
+
+      mapLayerGroup.clearLayers();
+
+      function createIcon(color, size = 12, pulse = false) {
+        const pulseStyle = pulse ? 'box-shadow: 0 0 16px ' + color + ';' : '';
+        return L.divIcon({
+          className: '',
+          html: '<div style="width:'+size+'px;height:'+size+'px;background:'+color+';border-radius:50%;border:2px solid rgba(255,255,255,0.3);'+pulseStyle+'"></div>',
+          iconSize: [size, size], iconAnchor: [size/2, size/2],
+        });
+      }
+      const iconStart = createIcon('#fbbf24', 13, true);
+      const iconTransit = createIcon('#7dd3fc', 11, false);
+      const iconCore = createIcon('#4ade80', 13, true);
+      const iconEnd = createIcon('#fbbf24', 13, true);
+
+      function getIcon(type) {
+        switch(type) { case 'start': return iconStart; case 'end': return iconEnd; case 'core': return iconCore; default: return iconTransit; }
+      }
+
+      // Flight lines
+      (mapData.flightSegments||[]).forEach(([i, j]) => {
+        const a = mapData.locations[i], b = mapData.locations[j];
+        const pts = greatCirclePoints(a.lat, a.lng, b.lat, b.lng, 80);
+        L.polyline(pts, { color: 'rgba(251,191,36,0.45)', weight: 2, dashArray: '8, 6', interactive: false }).addTo(mapLayerGroup);
+      });
+
+      // Drive lines
+      (mapData.driveSegments||[]).forEach(([i, j]) => {
+        const a = mapData.locations[i], b = mapData.locations[j];
+        L.polyline([[a.lat, a.lng], [b.lat, b.lng]], { color: '#4ade80', weight: 3, interactive: false }).addTo(mapLayerGroup);
+      });
+
+      // Markers
+      mapData.locations.forEach((loc) => {
+        const marker = L.marker([loc.lat, loc.lng], { icon: getIcon(loc.type) }).addTo(mapLayerGroup);
+        let typeBadge = '';
+        if (loc.type === 'core') typeBadge = '<span class="badge">核心游玩地</span>';
+        else if (loc.type === 'start') typeBadge = '<span class="badge">出发地</span>';
+        else if (loc.type === 'end') typeBadge = '<span class="badge">返程地</span>';
+        else typeBadge = '<span class="badge">中转</span>';
+        marker.bindPopup('<strong>'+loc.name+'</strong> <small style="color:#a0b4d0">'+loc.en+'</small><br><span style="font-size:0.8rem;color:var(--text-secondary)">Day '+loc.day+' · '+loc.date+'</span>'+typeBadge, { offset: [0, -8] });
+      });
+
+      const allCoords = mapData.locations.map(l => [l.lat, l.lng]);
+      mapInstance.fitBounds(L.latLngBounds(allCoords).pad(0.15));
+    } catch(e) { console.warn('Map init error:', e.message); }
+  }
+
+  // ==================== 图片元素构建 ====================
+  function buildPhotoElement(photo) {
+    return '<div class="photo-card">' +
+      '<img src="'+photo.url+'" alt="'+photo.alt+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">' +
+      '<div class="photo-placeholder" style="display:none;"><span>📷 '+photo.alt+'</span><a href="'+photo.searchUrl+'" target="_blank" rel="noopener">🔍 在 Unsplash 搜索图片</a></div>' +
+      '<div class="photo-caption">'+photo.caption+' <span class="photo-credit">· '+photo.credit+'</span></div>' +
+      '</div>';
+  }
+
+  // ==================== 渲染函数 ====================
+  function renderHero(route) {
+    document.querySelector('.hero h1').textContent = route.hero.title;
+    document.querySelector('.hero p:first-of-type').textContent = route.hero.subtitle;
+    document.querySelector('.hero .date-badge').textContent = route.hero.date;
+  }
+
+  function renderOverview(route) {
+    const o = route.overview;
+    const cards = document.querySelectorAll('#overview .overview-card .card-value');
+    const labels = document.querySelectorAll('#overview .overview-card .card-label');
+    if (cards.length >= 4) {
+      cards[0].textContent = o.travelers;
+      cards[1].textContent = o.cityCount+'城';
+      cards[2].textContent = o.auroraNights;
+      cards[3].textContent = o.expCount+'项';
+    }
+    if (labels.length >= 4) {
+      labels[1].textContent = o.cityRoute;
+      labels[3].textContent = o.expClass||o.expDesc||'';
+    }
+  }
+
+  function renderItinerary(route) {
+    const container = document.getElementById('timeline-container');
+    if (!container) return;
+    let h = '';
+    route.itinerary.forEach(day => {
+      const tcMap = {transport:'tag-aurora',sightseeing:'tag-photo',activity:'tag-activity'};
+      h += '<div class="day-card"><div class="day-header"><div class="day-number"><span class="day-icon">'+day.icon+'</span> Day '+day.day+'</div><div class="day-date">'+day.date+'</div><span class="tag '+ (tcMap[day.tagClass]||'tag-activity') +'">'+day.tag+'</span></div><h3 style="font-size:1.15rem;color:var(--text-primary);margin-bottom:0.75rem">'+day.title+'</h3><div class="day-content">'+day.content+'</div>';
+      if (day.photos && day.photos.length > 0) {
+        h += '<div class="day-photos">';
+        day.photos.forEach(p => { h += buildPhotoElement(p); });
+        h += '</div>';
+      }
+      h += '</div>';
+    });
+    container.innerHTML = h;
+    // Re-observe for animations
+    document.querySelectorAll('.day-card').forEach(card => {
+      card.style.opacity = '0'; card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      if (window._cardObserver) window._cardObserver.observe(card);
+    });
+  }
+
+  function renderTransport(route) {
+    const container = document.getElementById('transport-content');
+    if (!container) return;
+    const t = route.transport;
+    let h = '';
+
+    // International
+    if (t.international && t.international.length) {
+      h += '<h3>🌍 国际航班</h3><div class="transport-table"><table><thead><tr><th>航段</th><th>方式</th><th>耗时</th><th>备注</th><th>参考费用</th></tr></thead><tbody>';
+      t.international.forEach(r => { h += '<tr><td>'+r.route+'</td><td>'+r.mode+'</td><td>'+r.duration+'</td><td>'+r.note+'</td><td>'+r.cost+'</td></tr>'; });
+      h += '</tbody></table></div>';
+    }
+
+    // Domestic
+    if (t.domestic && t.domestic.length) {
+      h += '<h3>🇳🇴 挪威国内交通</h3><div class="transport-table"><table><thead><tr><th>航段</th><th>方式</th><th>耗时</th><th>备注</th><th>参考费用</th></tr></thead><tbody>';
+      t.domestic.forEach(r => { h += '<tr><td>'+r.route+'</td><td>'+r.mode+'</td><td>'+r.duration+'</td><td>'+r.note+'</td><td>'+r.cost+'</td></tr>'; });
+      h += '</tbody></table></div>';
+    }
+
+    // Cruise comparison if exists
+    if (t.cruiseComparison) {
+      h += '<h3>🛳️ 特罗姆瑟→罗佛敦：飞行 vs 游轮</h3><div class="transport-table"><table><thead><tr><th>对比维度</th><th>✈️ 飞行</th><th>🛳️ 游轮 (Hurtigruten/Havila)</th></tr></thead><tbody>';
+      t.cruiseComparison.forEach(r => { h += '<tr><td><strong>'+r.aspect+'</strong></td><td>'+r.fly+'</td><td>'+r.cruise+'</td></tr>'; });
+      h += '</tbody></table></div>';
+    }
+
+    if (t.conclusion) h += '<div class="cruise-conclusion"><strong>结论：</strong>'+t.conclusion+'</div>';
+    container.innerHTML = h;
+  }
+
+  function renderBudget(route) {
+    const container = document.getElementById('budget-content');
+    if (!container) return;
+    const b = route.budget;
+    let h = '';
+    let idx = 0;
+    const icons = ['✈️','🚌','🏨','🎯','🍽️','📱'];
+    b.sections.forEach(s => {
+      h += '<div class="budget-card"><h4>'+s.label+'</h4><div class="budget-range"><span class="budget-low">'+s.low+'</span><span class="budget-sep"> — </span><span class="budget-high">'+s.high+'</span></div><p class="budget-note">'+s.note+'</p></div>';
+    });
+    if (b.totalNote) h += '<div class="budget-total"><p>'+b.totalNote+'</p></div>';
+
+    // Budget comparison table
+    h += '<div class="budget-compare"><h3>📊 四条路线预算对比（双人总预算）</h3>';
+    h += '<div style="overflow-x:auto"><table class="budget-compare-table"><thead><tr><th class="route-label-col">费用类别</th>';
+    const routeIds = ['v1','v2','v3a','v3b'];
+    const activeId = getActiveRouteId();
+    routeIds.forEach(rid => {
+      h += '<th class="'+(rid===activeId?'active-col':'')+'">'+ROUTES[rid].tabLabel+'<br><small style="font-weight:400">'+ROUTES[rid].tabSub.split('·')[1]||''+'</small></th>';
+    });
+    h += '</tr></thead><tbody>';
+    const catLabels = ['国际机票','国内交通','住宿','活动体验','餐饮','签证/保险/其他'];
+    const catKeys = ['international','domestic','accommodation','activities','food','other'];
+    for (let ci = 0; ci < 6; ci++) {
+      h += '<tr><td class="cat-label">'+catLabels[ci]+'</td>';
+      routeIds.forEach(rid => {
+        const rb = ROUTES[rid].budget;
+        const s = rb.sections[ci] || {low:'-',high:'-'};
+        h += '<td class="'+(rid===activeId?'active-col':'')+'">'+s.low+'<br>~ '+s.high+'</td>';
+      });
+      h += '</tr>';
+    }
+    h += '</tbody></table></div></div>';
+    container.innerHTML = h;
+  }
+
+  function renderDashboardCities(route) {
+    const container = document.getElementById('city-tabs-container');
+    if (!container) return;
+    const cities = route.weatherCities||['tromso','reine','oslo'];
+    const cityNames = {tromso:'特罗姆瑟',reine:'罗佛敦 · 雷讷',oslo:'奥斯陆',bergen:'卑尔根'};
+    let h = '';
+    cities.forEach((cid, i) => {
+      h += '<button class="city-tab'+(i===0?' active':'')+'" data-city="'+cid+'">'+cityNames[cid]+'</button>';
+    });
+    container.innerHTML = h;
+    // Re-initialize: set first city as active
+    if (cities.length > 0 && typeof curCity !== 'undefined') {
+      curCity = cities[0];
+      if (document.getElementById('weather-city-name')) document.getElementById('weather-city-name').textContent = cityNames[curCity]||curCity;
+    }
+    // Re-wire city tab clicks
+    container.querySelectorAll('.city-tab').forEach(b => {
+      b.addEventListener('click', function() {
+        container.querySelectorAll('.city-tab').forEach(x => x.classList.remove('active'));
+        this.classList.add('active');
+        const cityId = this.dataset.city;
+        if (document.getElementById('weather-city-name')) document.getElementById('weather-city-name').textContent = cityNames[cityId]||cityId;
+        if (window._loadWeather) window._loadWeather();
+        if (window._showTripWx) window._showTripWx();
+      });
+    });
+    if (window._loadWeather) window._loadWeather();
+    if (window._showTripWx) window._showTripWx();
+  }
+
+  // ==================== 路线切换 ====================
+  function switchRoute(routeId, subRouteId) {
+    if (routeId === 'v3') {
+      currentRoute = 'v3';
+      if (subRouteId) currentSubRoute = subRouteId;
+      document.getElementById('route-subtabs').classList.add('visible');
+    } else {
+      currentRoute = routeId;
+      document.getElementById('route-subtabs').classList.remove('visible');
+    }
+
+    // Update tab active states
+    document.querySelectorAll('.route-tab').forEach(t => t.classList.toggle('active', t.dataset.route === currentRoute));
+    document.querySelectorAll('.route-subtab').forEach(t => t.classList.toggle('active', t.dataset.subroute === currentSubRoute));
+
+    const route = getActiveRoute();
+    renderHero(route);
+    renderOverview(route);
+    renderItinerary(route);
+    renderTransport(route);
+    renderBudget(route);
+    renderDashboardCities(route);
+    initMap(route);
+
+    // Update footer timestamp
+    const ut = document.getElementById('update-time');
+    if (ut) ut.textContent = new Date().toISOString().split('T')[0];
+  }
+
+  // ==================== 事件绑定 ====================
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.route-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        const rid = this.dataset.route;
+        if (rid === 'v3') {
+          switchRoute('v3', currentSubRoute);
+        } else {
+          switchRoute(rid);
+        }
+      });
+    });
+    document.querySelectorAll('.route-subtab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        switchRoute('v3', this.dataset.subroute);
+      });
+    });
+    // Initial render
+    switchRoute('v1');
+  });
+
+  // ==================== 地图初始化（页面加载时） ====================
   (function() {
     if (typeof L === 'undefined') { console.warn('Leaflet not loaded, map skipped'); return; }
-    try {
-    // 北极圈纬度
-    const ARCTIC_CIRCLE = 66.563;
-
-    // 行程位置定义
-    const locations = [
-      { id:'hkg',  name:'香港',      en:'Hong Kong',    lat:22.319,  lng:114.169,  type:'start', day:1, date:'2/4' },
-      { id:'ist',  name:'伊斯坦布尔', en:'Istanbul',      lat:41.261,  lng:28.742,   type:'transit', day:1, date:'2/4' },
-      { id:'osl1', name:'奥斯陆',     en:'Oslo',          lat:60.197,  lng:11.100,   type:'transit', day:1, date:'2/4' },
-      { id:'tos',  name:'特罗姆瑟',   en:'Tromsø',        lat:69.649,  lng:18.956,   type:'core', day:2, date:'2/5-2/8' },
-      { id:'svj',  name:'斯沃尔韦尔', en:'Svolvær',       lat:68.235,  lng:14.565,   type:'core', day:5, date:'2/8' },
-      { id:'reine',name:'雷讷',       en:'Reine',         lat:67.932,  lng:13.089,   type:'core', day:6, date:'2/9-2/10' },
-      { id:'a_town',name:'Å镇',       en:'Å i Lofoten',  lat:67.879,  lng:12.982,   type:'core', day:7, date:'2/10' },
-      { id:'osl2', name:'奥斯陆',     en:'Oslo',          lat:59.913,  lng:10.752,   type:'transit', day:8, date:'2/11-2/12' },
-      { id:'ist2', name:'伊斯坦布尔', en:'Istanbul',      lat:41.261,  lng:28.742,   type:'transit', day:9, date:'2/12' },
-      { id:'hkg2', name:'香港',      en:'Hong Kong',     lat:22.319,  lng:114.169,  type:'end', day:9, date:'2/12' },
-    ];
-
-    // 路线段定义 (索引对)
-    const flightSegments = [
-      [0,1],[1,2],[2,3],[3,4],[6,7],[7,8],[8,9]  // HKG→IST, IST→OSL, OSL→TOS, TOS→SVJ, Å→OSL, OSL→IST, IST→HKG
-    ];
-    const driveSegments = [
-      [4,5],[5,6]  // SVJ→Reine, Reine→Å
-    ];
-
-    // 创建地图（使用带极地投影的暗色底图）
-    const map = L.map('trip-map', {
-      center: [55, 40],
-      zoom: 4,
-      scrollWheelZoom: true,
-      zoomControl: true,
-      attributionControl: true,
-    });
-
-    // 底图：优先用 CARTO 暗色，回退到 OSM
-    let tileLayer;
-    try {
-      tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19,
-      }).addTo(map);
-    } catch(e) { /* fallback below */ }
-
-    // 如果 CARTO 加载失败（超时5秒），自动切换到 OSM
-    setTimeout(() => {
-      const tiles = document.querySelectorAll('#trip-map .leaflet-tile');
-      if (tiles.length === 0 || tiles[0].naturalWidth === 0) {
-        if (tileLayer) map.removeLayer(tileLayer);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a>',
-          maxZoom: 19,
-        }).addTo(map);
-        // 暗色滤镜
-        const el = document.getElementById('trip-map');
-        if (el) el.style.filter = 'invert(0.9) hue-rotate(180deg) brightness(0.6)';
-      }
-    }, 5000);
-
-    // 北极圈虚线
-    L.polyline([
-      [-180, ARCTIC_CIRCLE], [180, ARCTIC_CIRCLE]
-    ], {
-      color: 'rgba(125,211,252,0.3)',
-      weight: 1.5,
-      dashArray: '6, 12',
-      interactive: false,
-    }).addTo(map);
-
-    // 北极圈标签
-    L.marker([ARCTIC_CIRCLE, -170], {
-      icon: L.divIcon({
-        className: '',
-        html: '<div style="background:rgba(125,211,252,0.15);color:rgba(125,211,252,0.7);padding:2px 8px;border-radius:99px;font-size:10px;white-space:nowrap;border:1px solid rgba(125,211,252,0.2)">Arctic Circle 66.5°N</div>',
-        iconSize: [0,0], iconAnchor: [0,0],
-      })
-    }).addTo(map);
-
-    // 创建图标
-    function createIcon(color, size = 12, pulse = false) {
-      const pulseStyle = pulse ? 'box-shadow: 0 0 16px ' + color + ';' : '';
-      return L.divIcon({
-        className: '',
-        html: `<div style="width:${size}px;height:${size}px;background:${color};border-radius:50%;border:2px solid rgba(255,255,255,0.3);${pulseStyle}"></div>`,
-        iconSize: [size, size],
-        iconAnchor: [size/2, size/2],
-      });
-    }
-
-    const iconStart   = createIcon('#fbbf24', 13, true);
-    const iconTransit = createIcon('#7dd3fc', 11, false);
-    const iconCore    = createIcon('#4ade80', 13, true);
-    const iconEnd     = createIcon('#fbbf24', 13, true);
-
-    function getIcon(type) {
-      switch(type) {
-        case 'start': return iconStart;
-        case 'end':   return iconEnd;
-        case 'core':  return iconCore;
-        default:      return iconTransit;
-      }
-    }
-
-    // 绘制飞行路线（大圆弧，用多段折线近似）
-    flightSegments.forEach(([i, j]) => {
-      const a = locations[i], b = locations[j];
-      const points = greatCirclePoints(a.lat, a.lng, b.lat, b.lng, 80);
-      L.polyline(points, {
-        color: 'rgba(251,191,36,0.45)',
-        weight: 2,
-        dashArray: '8, 6',
-        interactive: false,
-      }).addTo(map);
-    });
-
-    // 绘制自驾路线
-    driveSegments.forEach(([i, j]) => {
-      const a = locations[i], b = locations[j];
-      L.polyline([[a.lat, a.lng], [b.lat, b.lng]], {
-        color: '#4ade80',
-        weight: 3,
-        dashArray: null,
-        interactive: false,
-      }).addTo(map);
-
-      // 自驾路线脉冲动画标记
-      const midLat = (a.lat + b.lat) / 2;
-      const midLng = (a.lng + b.lng) / 2;
-      L.marker([midLat, midLng], {
-        icon: L.divIcon({
-          className: '',
-          html: '<div style="background:rgba(74,222,128,0.12);color:#4ade80;padding:2px 6px;border-radius:4px;font-size:9px;white-space:nowrap">🚗 E10公路</div>',
-          iconSize: [0,0], iconAnchor: [0,0],
-        })
-      }).addTo(map);
-    });
-
-    // 放置标记
-    locations.forEach((loc, idx) => {
-      const marker = L.marker([loc.lat, loc.lng], { icon: getIcon(loc.type) }).addTo(map);
-
-      let typeBadge = '';
-      if (loc.type === 'core') typeBadge = '<span class="badge">核心游玩地</span>';
-      else if (loc.type === 'start') typeBadge = '<span class="badge">出发地</span>';
-      else if (loc.type === 'end') typeBadge = '<span class="badge">返程地</span>';
-      else typeBadge = '<span class="badge">中转</span>';
-
-      marker.bindPopup(`
-        <strong>${loc.name}</strong> <small style="color:#a0b4d0">${loc.en}</small><br>
-        <span style="font-size:0.8rem;color:var(--text-secondary)">Day ${loc.day} · ${loc.date}</span>
-        ${typeBadge}
-      `, { offset: [0, -8] });
-    });
-
-    // 适配地图视野
-    const allCoords = locations.map(l => [l.lat, l.lng]);
-    map.fitBounds(L.latLngBounds(allCoords).pad(0.15));
-
-    // ---------- 大圆弧插值 ----------
-    function greatCirclePoints(lat1, lon1, lat2, lon2, n) {
-      const toRad = Math.PI / 180, toDeg = 180 / Math.PI;
-      const φ1 = lat1 * toRad, λ1 = lon1 * toRad;
-      const φ2 = lat2 * toRad, λ2 = lon2 * toRad;
-      const pts = [];
-      for (let k = 0; k <= n; k++) {
-        const f = k / n;
-        const a = Math.sin((1 - f) * Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1)));
-        const b = Math.sin(f * Math.acos(Math.sin(φ1) * Math.sin(φ2) + Math.cos(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1)));
-        const x = a * Math.cos(φ1) * Math.cos(λ1) + b * Math.cos(φ2) * Math.cos(λ2);
-        const y = a * Math.cos(φ1) * Math.sin(λ1) + b * Math.cos(φ2) * Math.sin(λ2);
-        const z = a * Math.sin(φ1) + b * Math.sin(φ2);
-        pts.push([Math.atan2(z, Math.sqrt(x * x + y * y)) * toDeg, Math.atan2(y, x) * toDeg]);
-      }
-      return pts;
-    }
-    } catch(e) { console.warn('Map init error:', e.message); }
+    try { initMap(ROUTES.v1); } catch(e) { console.warn('Map init error:', e.message); }
   })();
 
   // ==================== 天气 & KP Dashboard ====================
@@ -1424,7 +1478,12 @@
       tromso: { name:"特罗姆瑟", lat:69.65, lng:18.96, tz:"Europe/Oslo", febHi:-3, febLo:-8, febSnow:22 },
       reine:  { name:"雷讷",     lat:67.93, lng:13.09, tz:"Europe/Oslo", febHi:1,  febLo:-3,  febSnow:18 },
       oslo:   { name:"奥斯陆",   lat:59.91, lng:10.75, tz:"Europe/Oslo", febHi:0,  febLo:-6,  febSnow:14 },
+      bergen: { name:"卑尔根",   lat:60.39, lng:5.32,  tz:"Europe/Oslo", febHi:4,  febLo:0,   febSnow:10 },
     };
+    function getActiveCity() {
+      const tab = document.querySelector('#city-tabs-container .city-tab.active');
+      return tab && cities[tab.dataset.city] ? tab.dataset.city : 'tromso';
+    }
     const wIcons = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌧️",53:"🌧️",55:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",71:"🌨️",73:"🌨️",75:"🌨️",77:"❄️",80:"🌦️",81:"🌦️",82:"🌦️",85:"🌨️",86:"🌨️",95:"⛈️",96:"⛈️",99:"⛈️"};
     const wNames = {0:"晴",1:"少云",2:"多云",3:"阴",45:"雾",48:"霜雾",51:"小雨",53:"中雨",55:"大雨",61:"小雨",63:"中雨",65:"大雨",71:"小雪",73:"中雪",75:"大雪",77:"雪粒",80:"阵雨",81:"中阵雨",82:"大阵雨",85:"阵雪",86:"大阵雪",95:"雷暴",96:"雷暴+冰雹",99:"强雷暴"};
 
@@ -1432,18 +1491,6 @@
     let fcData = [];
     let obsData = [];
     let kpTab = "realtime";
-
-    // ====== 城市切换 ======
-    document.querySelectorAll(".city-tab").forEach(b => {
-      b.addEventListener("click", function() {
-        document.querySelectorAll(".city-tab").forEach(x => x.classList.remove("active"));
-        this.classList.add("active");
-        curCity = this.dataset.city;
-        document.getElementById("weather-city-name").textContent = cities[curCity].name;
-        loadWeather();
-        showTripWx();
-      });
-    });
 
     // ====== 天气 ======
     function renderWxSkeleton() {
@@ -1460,7 +1507,8 @@
 
     async function loadWeather() {
       renderWxSkeleton();
-      const city = cities[curCity];
+      const cur = getActiveCity();
+      const city = cities[cur];
       try {
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lng}&daily=temperature_2m_max,temperature_2m_min,weathercode,snowfall_sum,precipitation_probability_max&timezone=${city.tz}&forecast_days=7`;
         const r = await fetch(url);
@@ -1474,7 +1522,7 @@
           const d = new Date(daily.time[i]+"T12:00");
           const label = i===0?"今天":i===1?"明天":dn[d.getDay()];
           const code = daily.weathercode[i];
-          const isSnow = curCity==="tromso"||curCity==="reine";
+          const isSnow = cur==="tromso"||cur==="reine";
           const snow = daily.snowfall_sum[i]||0;
           const pp = daily.precipitation_probability_max ? daily.precipitation_probability_max[i] : 0;
           h += `<div class="weather-row">
@@ -1493,7 +1541,8 @@
 
     // ====== 出行日期天气 ======
     function showTripWx() {
-      const city = cities[curCity];
+      const cur = getActiveCity();
+      const city = cities[cur];
       const grid = document.getElementById("trip-weather-grid");
       const now = new Date();
       const daysLeft = Math.ceil((TRIP_START - now)/(86400000));
@@ -1504,7 +1553,7 @@
         const lbl = `${td.getMonth()+1}/${td.getDate()}`;
         const dw = dn[td.getDay()];
         if (daysLeft > 14) {
-          const isSnow = curCity==="tromso"||curCity==="reine";
+          const isSnow = cur==="tromso"||cur==="reine";
           h += `<div class="trip-date-cell">
             <div class="td-date">${lbl} 周${dw}</div>
             <div style="font-size:0.7rem;color:var(--accent-ice)">${city.febHi}° / ${city.febLo}°</div>
@@ -1671,6 +1720,10 @@
     loadKp();
 
     setInterval(() => { loadWeather(); showTripWx(); loadKp(); }, 30*60*1000);
+
+    // Expose for route switching
+    window._loadWeather = loadWeather;
+    window._showTripWx = showTripWx;
     } catch(e) { console.warn('Dashboard error:', e.message); }
   })();
 
@@ -1698,6 +1751,7 @@
       }
     });
   }, { threshold: 0.1 });
+  window._cardObserver = observer;
 
   document.querySelectorAll('.day-card, .overview-card, .budget-card, .tip-card').forEach(card => {
     card.style.opacity = '0';
